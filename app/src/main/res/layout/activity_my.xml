@@ -8,9 +8,56 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MyActivity">
 
-    <TextView
-        android:text="@string/hello_world"
+
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/monumentos"
+        android:id="@+id/but_mon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/but_mon"
+        android:layout_centerHorizontal="true"
+        android:text="@string/museos"
+        android:id="@+id/but_mus" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/but_mon"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/but_noche"
+        android:text="@string/noche"
+        android:layout_toEndOf="@+id/but_mus" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/but_res"
+        android:text="@string/restaurantes"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/but_tend"
+        android:text="@string/tiendas"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/but_hot"
+        android:text="@string/hoteles"
+        android:layout_toEndOf="@+id/but_mus" />
+
 
 </RelativeLayout>

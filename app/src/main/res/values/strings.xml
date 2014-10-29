@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">guiaCoruna</string>
+    <string name="app_name">La Coruña</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="monumentos">Monumentos</string>
+    <string name="hoteles">Hoteles</string>
+    <string name="tiendas">Tiendas</string>
+    <string name="restaurantes">Restaurantes</string>
+    <string name="museos">Museos</string>
+    <string name="noche">Noche</string>
+    <string name="title_activity_list">ListActiv</string>
 
 </resources>

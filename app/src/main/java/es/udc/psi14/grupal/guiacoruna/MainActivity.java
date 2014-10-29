@@ -1,17 +1,26 @@
 package es.udc.psi14.grupal.guiacoruna;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
-public class MyActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
+
+    private Button butMus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        butMus = (Button) findViewById(R.id.but_mus);
+
+        butMus.setOnClickListener(this);
+
     }
 
 
@@ -32,5 +41,14 @@ public class MyActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.but_mus:
+                startActivity(new Intent(this,PuntoInteresListActiv.class));
+                break;
+        }
     }
 }
