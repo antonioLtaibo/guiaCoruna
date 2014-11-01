@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -25,6 +26,7 @@ public class PuntoInteresListActiv extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        /**
         PuntoInteresContainer a = new PuntoInteresContainer();
         a.setNombre("aaaaa");
         a.setDireccion("diraaaaaa");
@@ -37,7 +39,20 @@ public class PuntoInteresListActiv extends Activity {
         PuntoInteresContainer[] puntoInteresData = new PuntoInteresContainer[] {
             a,b,c
         };
+        /**/
 
+        // MOSTRAR TODO_
+        /**/
+        SQLModel model = new SQLModel(this);
+        LinkedList<PuntoInteresContainer> items = ((LinkedList)model.getAll());
+        int size = items.size();
+        PuntoInteresContainer[] puntoInteresData = new  PuntoInteresContainer[size];
+        int index = 0;
+        for (PuntoInteresContainer pi : items){
+            puntoInteresData[index] = pi;
+            index ++;
+        }
+        /**/
 
 
         PuntoInteresAdapter adapter = new PuntoInteresAdapter(this,
@@ -69,7 +84,8 @@ public class PuntoInteresListActiv extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list, menu);
+        //getMenuInflater().inflate(R.menu.list, menu);
+        getMenuInflater().inflate(R.menu.my, menu);
         return true;
     }
 

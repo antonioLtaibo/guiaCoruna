@@ -39,6 +39,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.action_test_model){
+            startActivity(new Intent(this,testmodel.class));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

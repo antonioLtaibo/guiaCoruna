@@ -11,5 +11,7 @@
     <string name="museos">Museos</string>
     <string name="noche">Noche</string>
     <string name="title_activity_list">ListActiv</string>
+    <string name="title_activity_testmodel">testmodel</string>
+    <string name="title_activity_test">test</string>
 
 </resources>

@@ -20,6 +20,10 @@
             android:name=".PuntoInteresListActiv"
             android:label="@string/title_activity_list" >
         </activity>
+        <activity
+            android:name=".testmodel"
+            android:label="@string/title_activity_testmodel" >
+        </activity>
     </application>
 
 </manifest>
