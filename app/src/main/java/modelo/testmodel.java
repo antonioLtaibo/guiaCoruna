@@ -1,9 +1,7 @@
-package es.udc.psi14.grupal.guiacoruna;
+package modelo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
+
+import es.udc.psi14.grupal.guiacoruna.R;
 
 
 public class testmodel extends Activity implements View.OnClickListener {
@@ -73,7 +73,7 @@ public class testmodel extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view == butt_enviar){
-            PuntoInteresContainer pi = new PuntoInteresContainer();
+            PuntoInteres pi = new PuntoInteres();
             pi.setTelefono(et_telefono.getText().toString());
             pi.setNombre(et_nombre.getText().toString());
             pi.setDireccion(et_direccion.getText().toString());
@@ -87,15 +87,15 @@ public class testmodel extends Activity implements View.OnClickListener {
             }
         }else if(view == butt_buscar){
             String string = et_cadena_buscar.getText().toString();
-            LinkedList<PuntoInteresContainer> pi = new LinkedList<PuntoInteresContainer>();
+            LinkedList<PuntoInteres> pi = new LinkedList<PuntoInteres>();
             if(buscar_nombre.isChecked()){
-                PuntoInteresContainer c = model.findByName(string);
+                PuntoInteres c = model.findByName(string);
                 if(c!=null) pi.add(c);
             }else if(buscar_id.isChecked()){
-                PuntoInteresContainer c = model.findByID(string);
+                PuntoInteres c = model.findByID(string);
                 if(c!=null) pi.add(c);
             }else if(buscar_tipo.isChecked()){
-                pi = (LinkedList<PuntoInteresContainer>) model.findByType(string);
+                pi = (LinkedList<PuntoInteres>) model.findByType(string);
             }
             if(pi.isEmpty()){
                 Toast.makeText(this,"Busqueda Falló",Toast.LENGTH_SHORT).show();

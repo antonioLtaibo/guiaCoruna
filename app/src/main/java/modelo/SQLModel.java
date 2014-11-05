@@ -1,4 +1,4 @@
-package es.udc.psi14.grupal.guiacoruna;
+package modelo;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by tributo on 1/11/14.
@@ -23,7 +22,7 @@ public class SQLModel implements ModelInterface {
     }
 
     @Override
-    public boolean addPuntoInteres(PuntoInteresContainer pi) {
+    public boolean addPuntoInteres(PuntoInteres pi) {
 
         try {
             SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
@@ -33,17 +32,15 @@ public class SQLModel implements ModelInterface {
 
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
-            UUID id = UUID.randomUUID();
-            values.put(PuntoInteresContract.PuntoInteres.COLUMN_NAME_ENTRY_ID, id.toString());
-            values.put(PuntoInteresContract.PuntoInteres.COLUMN_NAME_DIRECCION, pi.getDireccion());
-            values.put(PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE, pi.getNombre());
-            values.put(PuntoInteresContract.PuntoInteres.COLUMN_NAME_TIPO, pi.getTipo());
-            values.put(PuntoInteresContract.PuntoInteres.COLUMN_NAME_TELEFONO, pi.getTelefono());
+            values.put(PuntoInteres.COLUMN_NAME_DIRECCION, pi.getDireccion());
+            values.put(PuntoInteres.COLUMN_NAME_NOMBRE, pi.getNombre());
+            values.put(PuntoInteres.COLUMN_NAME_TIPO, pi.getTipo());
+            values.put(PuntoInteres.COLUMN_NAME_TELEFONO, pi.getTelefono());
 
             // Insert the new row, returning the primary key value of the new row
             long newRowId;
             newRowId = db.insert(
-                    PuntoInteresContract.PuntoInteres.TABLE_NAME,
+                    PuntoInteres.TABLE_NAME,
                     null,
                     values);
 
@@ -64,11 +61,10 @@ public class SQLModel implements ModelInterface {
             // Define a projection that specifies which columns from the database
             // you will actually use after this query.
             String[] projection = {
-                    PuntoInteresContract.PuntoInteres.COLUMN_NAME_ENTRY_ID,
-                    PuntoInteresContract.PuntoInteres.COLUMN_NAME_DIRECCION,
-                    PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE,
-                    PuntoInteresContract.PuntoInteres.COLUMN_NAME_TIPO,
-                    PuntoInteresContract.PuntoInteres.COLUMN_NAME_TELEFONO,
+                    PuntoInteres.COLUMN_NAME_DIRECCION,
+                    PuntoInteres.COLUMN_NAME_NOMBRE,
+                    PuntoInteres.COLUMN_NAME_TIPO,
+                    PuntoInteres.COLUMN_NAME_TELEFONO,
             };
 
             //String selection = PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE;
@@ -77,12 +73,12 @@ public class SQLModel implements ModelInterface {
                     value
             };*/
 
-            String sortOrder = PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE + " DESC";
+            String sortOrder = PuntoInteres.COLUMN_NAME_NOMBRE + " DESC";
 
             if(selection!=null) selection = selection + "=?";
 
             Cursor cursor = db.query(
-                    PuntoInteresContract.PuntoInteres.TABLE_NAME,  // The table to query
+                    PuntoInteres.TABLE_NAME,  // The table to query
                     projection,                               // The columns to return
                     selection,                                // The columns for the WHERE clause
                     selectionArgs,                            // The values for the WHERE clause
@@ -99,24 +95,24 @@ public class SQLModel implements ModelInterface {
     }
 
 
-    private PuntoInteresContainer parseSingleResult(Cursor cursor){
+    private PuntoInteres parseSingleResult(Cursor cursor){
         try{
             boolean hasData = cursor.moveToFirst();
             if(hasData) {
                 String telefono = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_TELEFONO)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO)
                 );
                 String tipo = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_TIPO)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TIPO)
                 );
                 String direccion = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_DIRECCION)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DIRECCION)
                 );
                 String nombre = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE)
                 );
 
-                PuntoInteresContainer pi = new PuntoInteresContainer();
+                PuntoInteres pi = new PuntoInteres();
                 pi.setDireccion(direccion);
                 pi.setNombre(nombre);
                 pi.setTelefono(telefono);
@@ -135,27 +131,27 @@ public class SQLModel implements ModelInterface {
         }
     }
 
-    private List<PuntoInteresContainer> parseMultipleResults(Cursor cursor){
+    private List<PuntoInteres> parseMultipleResults(Cursor cursor){
         try{
-            List results = new LinkedList <PuntoInteresContainer>();
+            List results = new LinkedList <PuntoInteres>();
             boolean moreRows = cursor.moveToFirst();
 
             while(moreRows){
 
                 String telefono = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_TELEFONO)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO)
                 );
                 String tipo = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_TIPO)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TIPO)
                 );
                 String direccion = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_DIRECCION)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DIRECCION)
                 );
                 String nombre = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE)
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE)
                 );
 
-                PuntoInteresContainer pi = new PuntoInteresContainer();
+                PuntoInteres pi = new PuntoInteres();
                 pi.setDireccion(direccion);
                 pi.setNombre(nombre);
                 pi.setTelefono(telefono);
@@ -177,38 +173,38 @@ public class SQLModel implements ModelInterface {
     }
 
     @Override
-    public PuntoInteresContainer findByName(String nombre) {
+    public PuntoInteres findByName(String nombre) {
         String[] selectionArgs = {
                 nombre
         };
         Cursor cursor =
-                this.findByField(PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE,selectionArgs);
+                this.findByField(PuntoInteres.COLUMN_NAME_NOMBRE,selectionArgs);
         return this.parseSingleResult(cursor);
     }
 
     @Override
-    public PuntoInteresContainer findByID(String id) {
+    public PuntoInteres findByID(String id) {
         String[] selectionArgs = {
                 id
         };
         Cursor cursor =
-                this.findByField(PuntoInteresContract.PuntoInteres.COLUMN_NAME_ENTRY_ID,selectionArgs);
+                this.findByField(PuntoInteres.COL_ID,selectionArgs);
         return this.parseSingleResult(cursor);
     }
 
 
     @Override
-    public List<PuntoInteresContainer> findByType(String tipo) {
+    public List<PuntoInteres> findByType(String tipo) {
         String[] selectionArgs = {
                 tipo
         };
         Cursor cursor =
-                this.findByField(PuntoInteresContract.PuntoInteres.COLUMN_NAME_TIPO,selectionArgs);
+                this.findByField(PuntoInteres.COLUMN_NAME_TIPO,selectionArgs);
         return this.parseMultipleResults(cursor);
     }
 
     @Override
-    public List<PuntoInteresContainer> getAll() {
+    public List<PuntoInteres> getAll() {
         String[] selectionArgs = null;
         Cursor cursor =
                 this.findByField(null,null);

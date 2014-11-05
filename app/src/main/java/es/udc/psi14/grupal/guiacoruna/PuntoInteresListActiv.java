@@ -1,20 +1,19 @@
 package es.udc.psi14.grupal.guiacoruna;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
+
+import modelo.PuntoInteres;
+import modelo.SQLModel;
 
 
 public class PuntoInteresListActiv extends Activity {
@@ -44,11 +43,11 @@ public class PuntoInteresListActiv extends Activity {
         // MOSTRAR TODO_
         /**/
         SQLModel model = new SQLModel(this);
-        LinkedList<PuntoInteresContainer> items = ((LinkedList)model.getAll());
+        LinkedList<PuntoInteres> items = ((LinkedList)model.getAll());
         int size = items.size();
-        PuntoInteresContainer[] puntoInteresData = new  PuntoInteresContainer[size];
+        PuntoInteres[] puntoInteresData = new  PuntoInteres[size];
         int index = 0;
-        for (PuntoInteresContainer pi : items){
+        for (PuntoInteres pi : items){
             puntoInteresData[index] = pi;
             index ++;
         }

@@ -21,7 +21,7 @@
             android:label="@string/title_activity_list" >
         </activity>
         <activity
-            android:name=".testmodel"
+            android:name="modelo.testmodel"
             android:label="@string/title_activity_testmodel" >
         </activity>
     </application>

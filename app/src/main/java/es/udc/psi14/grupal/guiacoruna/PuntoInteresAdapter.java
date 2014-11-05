@@ -9,14 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import modelo.PuntoInteres;
 
-public class PuntoInteresAdapter extends ArrayAdapter<PuntoInteresContainer> {
+
+public class PuntoInteresAdapter extends ArrayAdapter<PuntoInteres> {
 
     Context context;
     int resourceLayoutId;
-    PuntoInteresContainer data[]= null;
+    PuntoInteres data[]= null;
 
-    public PuntoInteresAdapter(Context context, int resourceLayoutId, PuntoInteresContainer[] data) {
+    public PuntoInteresAdapter(Context context, int resourceLayoutId, PuntoInteres[] data) {
         super(context, resourceLayoutId,data);
         this.resourceLayoutId = resourceLayoutId;
         this.context = context;
@@ -43,7 +45,7 @@ public class PuntoInteresAdapter extends ArrayAdapter<PuntoInteresContainer> {
             holder = (PuntoInteresHolder)row.getTag();
         }
 
-        PuntoInteresContainer puntointeres = data[position];
+        PuntoInteres puntointeres = data[position];
         holder.title.setText(puntointeres.getNombre());
         holder.detail.setText(puntointeres.getDireccion());
         holder.imgIcon.setImageResource(R.drawable.ic_launcher);

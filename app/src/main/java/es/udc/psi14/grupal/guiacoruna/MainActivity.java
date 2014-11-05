@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import modelo.testmodel;
+
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -40,7 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_test_model){
-            startActivity(new Intent(this,testmodel.class));
+            startActivity(new Intent(this, testmodel.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

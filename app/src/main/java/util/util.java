@@ -1,4 +1,4 @@
-package es.udc.psi14.grupal.guiacoruna;
+package util;
 
 /**
  * Created by tributo on 29/10/14.

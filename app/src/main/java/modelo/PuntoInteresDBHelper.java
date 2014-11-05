@@ -1,4 +1,4 @@
-package es.udc.psi14.grupal.guiacoruna;
+package modelo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,19 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class PuntoInteresDBHelper extends SQLiteOpenHelper {
 
+    private static final String TEXT_TYPE = " TEXT";
+    private static final String COMMA_SEP = ",";
+    public static final String SQL_CREATE_ENTRIES =
+            "CREATE TABLE " + PuntoInteres.TABLE_NAME + " (" +
+                    PuntoInteres.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    PuntoInteres.COLUMN_NAME_NOMBRE + TEXT_TYPE + COMMA_SEP +
+                    PuntoInteres.COLUMN_NAME_DIRECCION + TEXT_TYPE + COMMA_SEP +
+                    PuntoInteres.COLUMN_NAME_TELEFONO + TEXT_TYPE + COMMA_SEP +
+                    PuntoInteres.COLUMN_NAME_TIPO + TEXT_TYPE +
+                    " )";
 
+    private static final String SQL_DELETE_ENTRIES =
+            "DROP TABLE IF EXISTS " + PuntoInteres.TABLE_NAME;
 
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
@@ -21,7 +33,7 @@ public class PuntoInteresDBHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(PuntoInteresContract.SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_ENTRIES);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
