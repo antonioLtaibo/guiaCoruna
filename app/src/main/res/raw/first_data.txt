@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "nombre": "Cafe San Francisco",
+      "direccion": "Calle del Mar 3",
+      "telefono": "123 523 223",
+      "tipo": "CAFE"
+    },
+    {
+      "nombre": "Pizzeria El Angel",
+      "direccion": "Av Sanjurjo 8",
+      "telefono": "745 523 293",
+      "tipo": "RESTAURANTE"
+    },
+    {
+      "nombre": "El Argentino",
+      "direccion": "Plaza de España 45",
+      "telefono": "131 599 733",
+      "tipo": "CAFE"
+    }
+  ]
+}

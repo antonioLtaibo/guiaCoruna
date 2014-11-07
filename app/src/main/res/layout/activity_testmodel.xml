@@ -85,12 +85,6 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="inicializar"
-                android:id="@+id/butt_inicializar"
-                android:layout_gravity="center_horizontal" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Añadir"
                 android:id="@+id/butt_enviar"
                 android:layout_gravity="center_horizontal" />
@@ -162,6 +156,18 @@
             android:layout_height="wrap_content"
             android:text="TODO"
             android:id="@+id/mostrar_todo" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INIT"
+            android:id="@+id/butt_init" />
 
     </TableRow>
 

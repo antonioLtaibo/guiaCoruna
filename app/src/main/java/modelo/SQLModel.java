@@ -6,8 +6,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
+
+import es.udc.psi14.grupal.guiacoruna.R;
 
 /**
  * Created by tributo on 1/11/14.
@@ -210,4 +221,52 @@ public class SQLModel implements ModelInterface {
                 this.findByField(null,null);
         return this.parseMultipleResults(cursor);
     }
+
+
+    public void loadInitData(){
+        InputStream is = context.getResources().openRawResource(R.raw.first_data);
+        final char[] buffer = new char[512];
+        final StringBuilder out = new StringBuilder();
+        try {
+            final Reader in = new InputStreamReader(is, "UTF-8");
+            try {
+                for (;;) {
+                    int rsz = in.read(buffer, 0, buffer.length);
+                    if (rsz < 0)
+                        break;
+                    out.append(buffer, 0, rsz);
+                }
+            }
+            finally {
+                in.close();
+            }
+        } catch (UnsupportedEncodingException ex) {
+
+        } catch (IOException ex) {
+
+        }
+        String fileString = out.toString();
+
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(fileString);
+            JSONArray arr = obj.getJSONArray("data");
+            for (int i = 0; i < arr.length(); i++)
+            {
+                PuntoInteres pi = new PuntoInteres();
+
+                pi.setNombre(arr.getJSONObject(i).getString("nombre"));
+                pi.setDireccion(arr.getJSONObject(i).getString("direccion"));
+                pi.setTelefono(arr.getJSONObject(i).getString("telefono"));
+                pi.setTipo(arr.getJSONObject(i).getString("tipo"));
+
+                this.addPuntoInteres(pi);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

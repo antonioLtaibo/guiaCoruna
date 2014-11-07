@@ -24,7 +24,6 @@ public class testmodel extends Activity implements View.OnClickListener {
     EditText et_tipo;
     EditText et_cadena_buscar;
 
-    Button butt_inicializar;
     Button butt_enviar;
     Button butt_contar;
     Button butt_buscar;
@@ -35,6 +34,7 @@ public class testmodel extends Activity implements View.OnClickListener {
 
     Button mostrar_todo;
 
+    Button butt_init;
 
     SQLModel model;
 
@@ -53,8 +53,6 @@ public class testmodel extends Activity implements View.OnClickListener {
         et_tipo = (EditText) findViewById(R.id.et_tipo);
         et_cadena_buscar = (EditText) findViewById(R.id.et_cadena_buscar);
 
-        butt_inicializar = (Button) findViewById(R.id.butt_inicializar);
-        butt_inicializar.setOnClickListener(this);
         butt_enviar = (Button) findViewById(R.id.butt_enviar);
         butt_enviar.setOnClickListener(this);
         butt_contar = (Button) findViewById(R.id.butt_contar);
@@ -67,6 +65,10 @@ public class testmodel extends Activity implements View.OnClickListener {
         buscar_id = (RadioButton) findViewById(R.id.buscar_id);
 
         mostrar_todo = (Button) findViewById(R.id.mostrar_todo);
+
+        butt_init = (Button) findViewById(R.id.butt_init);
+        butt_init.setOnClickListener(this);
+
     }
 
 
@@ -106,8 +108,8 @@ public class testmodel extends Activity implements View.OnClickListener {
         }else if(view == butt_contar){
             Integer num = model.getAll().size();
             numItems.setText(num.toString());
-        }else if(view == butt_inicializar){
-
+        }else if(view == butt_init){
+            model.loadInitData();
         }
     }
 }
