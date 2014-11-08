@@ -9,6 +9,7 @@ public class util {
 
     public static final String TAG_TYPE = "TYPE";
     public static final String TAG_ICON = "ICON";
+    public static final String TAG_ID = "ID";
 
     public static final String TYPE_CAFE = "CAFE";
     public static final String TYPE_RESTAURANT = "RESTAURANT";

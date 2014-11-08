@@ -64,7 +64,7 @@ public class PuntoInteresListActiv extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), DetallesActivity.class);
-                intent.putExtra("id",puntoInteresData[position].getId());
+                intent.putExtra(util.TAG_ID,puntoInteresData[position].getId());
                 startActivity(intent);
             }
         });

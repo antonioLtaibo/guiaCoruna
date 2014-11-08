@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import modelo.PuntoInteres;
 import modelo.SQLModel;
+import util.util;
 
 
 public class DetallesActivity extends Activity {
@@ -30,7 +31,7 @@ public class DetallesActivity extends Activity {
         if (getIntent().getExtras()!=null) {
             model = new SQLModel(this);
             Bundle extra = getIntent().getExtras(); // check if not null
-            id = extra.getInt("id",0);
+            id = extra.getInt(util.TAG_ID,0);
             puntoInteres = model.findByID(String.valueOf(id));
             ActionBar actionBar;
             actionBar = getActionBar();

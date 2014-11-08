@@ -71,7 +71,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.but_hot:
                 i.putExtra(util.TAG_TYPE, util.TYPE_HOTEL);
-                i.putExtra(util.TAG_ICON,util.ICON_TYPE_MUSEUM);
+                i.putExtra(util.TAG_ICON,util.ICON_TYPE_HOTEL);
                 break;
             case R.id.but_noche:
                 i.putExtra(util.TAG_TYPE, util.TYPE_NIGHT);
