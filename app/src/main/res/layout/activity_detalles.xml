@@ -1,0 +1,97 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="es.udc.psi14.grupal.guiacoruna.DetallesActivity"
+    android:background="@android:color/background_light">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/black"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/darker_gray">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_name"
+                    android:text="@string/hello_world"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:background="@android:color/darker_gray"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/darker_gray">
+                 <TextView
+                     android:text="@string/hello_world"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceLarge"
+                     android:id="@+id/tv_dir"
+                     android:layout_gravity="center"
+                     android:drawableLeft="@android:drawable/ic_dialog_map"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/darker_gray">
+                 <TextView
+                     android:text="@string/hello_world"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceLarge"
+                     android:layout_gravity="center"
+                     android:id="@+id/tv_phone"
+                     android:drawableLeft="@android:drawable/stat_sys_phone_call"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/black"/>
+        </LinearLayout>
+    </TableLayout>
+
+ </LinearLayout>

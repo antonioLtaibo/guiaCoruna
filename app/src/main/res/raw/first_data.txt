@@ -10,7 +10,7 @@
       "nombre": "Pizzeria El Angel",
       "direccion": "Av Sanjurjo 8",
       "telefono": "745 523 293",
-      "tipo": "RESTAURANTE"
+      "tipo": "RESTAURANT"
     },
     {
       "nombre": "El Argentino",

@@ -1,7 +1,10 @@
 package es.udc.psi14.grupal.guiacoruna;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,51 +17,42 @@ import java.util.LinkedList;
 
 import modelo.PuntoInteres;
 import modelo.SQLModel;
+import util.util;
 
 
 public class PuntoInteresListActiv extends Activity {
 
     private ListView listView;
+    SQLModel model;
+    PuntoInteres[] puntoInteresData;
+    int drawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        /**
-        PuntoInteresContainer a = new PuntoInteresContainer();
-        a.setNombre("aaaaa");
-        a.setDireccion("diraaaaaa");
-        PuntoInteresContainer b = new PuntoInteresContainer();
-        b.setNombre("bbbbb");
-        b.setDireccion("diraabbbbb");
-        PuntoInteresContainer c = new PuntoInteresContainer();
-        c.setNombre("cccccc");
-        c.setDireccion("diracccc");
-        PuntoInteresContainer[] puntoInteresData = new PuntoInteresContainer[] {
-            a,b,c
-        };
-        /**/
 
-        // MOSTRAR TODO_
-        /**/
-        SQLModel model = new SQLModel(this);
-        LinkedList<PuntoInteres> items = ((LinkedList)model.getAll());
-        int size = items.size();
-        PuntoInteres[] puntoInteresData = new  PuntoInteres[size];
-        int index = 0;
-        for (PuntoInteres pi : items){
-            puntoInteresData[index] = pi;
-            index ++;
+        if (getIntent().getExtras()!=null) {
+            Bundle extra = getIntent().getExtras(); // check if not null
+            String type = extra.getString(util.TAG_TYPE, "");
+            drawable = extra.getInt(util.TAG_ICON,0);
+            ActionBar actionBar = getActionBar();
+            actionBar.setIcon(drawable);
+            actionBar.setTitle(type +  " List");
+            model = new SQLModel(this);
+            LinkedList<PuntoInteres> items = ((LinkedList) model.findByType(type));
+            int size = items.size();
+            puntoInteresData = new PuntoInteres[size];
+            int index = 0;
+            for (PuntoInteres pi : items) {
+                puntoInteresData[index] = pi;
+                index++;
+            }
         }
-        /**/
-
 
         PuntoInteresAdapter adapter = new PuntoInteresAdapter(this,
                 R.layout.adapterlayout, puntoInteresData);
-
-
-
 
 
         listView = (ListView) findViewById(R.id.list_view);
@@ -69,11 +63,9 @@ public class PuntoInteresListActiv extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                TextView title = (TextView)parent.findViewById(R.id.txt_title);
-                TextView detail = (TextView)parent.findViewById(R.id.txt_detail);
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem: " + title.getText().toString()+ " " + detail.getText().toString(), Toast.LENGTH_LONG)
-                        .show();
+                Intent intent = new Intent(getApplicationContext(), DetallesActivity.class);
+                intent.putExtra("id",puntoInteresData[position].getId());
+                startActivity(intent);
             }
         });
     }

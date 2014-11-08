@@ -72,6 +72,7 @@ public class SQLModel implements ModelInterface {
             // Define a projection that specifies which columns from the database
             // you will actually use after this query.
             String[] projection = {
+                    PuntoInteres.COL_ID,
                     PuntoInteres.COLUMN_NAME_DIRECCION,
                     PuntoInteres.COLUMN_NAME_NOMBRE,
                     PuntoInteres.COLUMN_NAME_TIPO,
@@ -110,6 +111,11 @@ public class SQLModel implements ModelInterface {
         try{
             boolean hasData = cursor.moveToFirst();
             if(hasData) {
+
+                Integer id = cursor.getInt(
+                        cursor.getColumnIndex(PuntoInteres.COL_ID)
+                );
+
                 String telefono = cursor.getString(
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO)
                 );
@@ -124,6 +130,7 @@ public class SQLModel implements ModelInterface {
                 );
 
                 PuntoInteres pi = new PuntoInteres();
+                pi.setId(id);
                 pi.setDireccion(direccion);
                 pi.setNombre(nombre);
                 pi.setTelefono(telefono);
@@ -149,6 +156,10 @@ public class SQLModel implements ModelInterface {
 
             while(moreRows){
 
+                Integer id = cursor.getInt(
+                        cursor.getColumnIndex(PuntoInteres.COL_ID)
+                );
+
                 String telefono = cursor.getString(
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO)
                 );
@@ -163,6 +174,7 @@ public class SQLModel implements ModelInterface {
                 );
 
                 PuntoInteres pi = new PuntoInteres();
+                pi.setId(id);
                 pi.setDireccion(direccion);
                 pi.setNombre(nombre);
                 pi.setTelefono(telefono);

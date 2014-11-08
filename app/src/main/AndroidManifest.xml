@@ -24,6 +24,10 @@
             android:name="modelo.testmodel"
             android:label="@string/title_activity_testmodel" >
         </activity>
+        <activity
+            android:name=".DetallesActivity"
+            android:label="@string/title_activity_detalles" >
+        </activity>
     </application>
 
 </manifest>

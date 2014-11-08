@@ -13,5 +13,6 @@
     <string name="title_activity_list">ListActiv</string>
     <string name="title_activity_testmodel">testmodel</string>
     <string name="title_activity_test">test</string>
+    <string name="title_activity_detalles">DetallesActivity</string>
 
 </resources>
