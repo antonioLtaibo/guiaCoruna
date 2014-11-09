@@ -47,6 +47,7 @@ public class SQLModel implements ModelInterface {
             values.put(PuntoInteres.COLUMN_NAME_NOMBRE, pi.getNombre());
             values.put(PuntoInteres.COLUMN_NAME_TIPO, pi.getTipo());
             values.put(PuntoInteres.COLUMN_NAME_TELEFONO, pi.getTelefono());
+            values.put(PuntoInteres.COLUMN_NAME_IMAGEN,pi.getImageString());
 
             // Insert the new row, returning the primary key value of the new row
             long newRowId;
@@ -77,6 +78,7 @@ public class SQLModel implements ModelInterface {
                     PuntoInteres.COLUMN_NAME_NOMBRE,
                     PuntoInteres.COLUMN_NAME_TIPO,
                     PuntoInteres.COLUMN_NAME_TELEFONO,
+                    PuntoInteres.COLUMN_NAME_IMAGEN
             };
 
             //String selection = PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE;
@@ -128,6 +130,9 @@ public class SQLModel implements ModelInterface {
                 String nombre = cursor.getString(
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE)
                 );
+                String imagen = cursor.getString(
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IMAGEN)
+                );
 
                 PuntoInteres pi = new PuntoInteres();
                 pi.setId(id);
@@ -135,6 +140,7 @@ public class SQLModel implements ModelInterface {
                 pi.setNombre(nombre);
                 pi.setTelefono(telefono);
                 pi.setTipo(tipo);
+                pi.setImageString(imagen);
                 return pi;
             }else{
                 return null;
@@ -172,6 +178,9 @@ public class SQLModel implements ModelInterface {
                 String nombre = cursor.getString(
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE)
                 );
+                String imagen = cursor.getString(
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IMAGEN)
+                );
 
                 PuntoInteres pi = new PuntoInteres();
                 pi.setId(id);
@@ -179,6 +188,7 @@ public class SQLModel implements ModelInterface {
                 pi.setNombre(nombre);
                 pi.setTelefono(telefono);
                 pi.setTipo(tipo);
+                pi.setImageString(imagen);
 
                 results.add(pi);
 
@@ -271,6 +281,7 @@ public class SQLModel implements ModelInterface {
                 pi.setDireccion(arr.getJSONObject(i).getString("direccion"));
                 pi.setTelefono(arr.getJSONObject(i).getString("telefono"));
                 pi.setTipo(arr.getJSONObject(i).getString("tipo"));
+                pi.setImageString(arr.getJSONObject(i).getString("imagen"));
 
                 this.addPuntoInteres(pi);
             }

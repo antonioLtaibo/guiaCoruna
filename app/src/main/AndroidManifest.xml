@@ -28,6 +28,9 @@
             android:name=".DetallesActivity"
             android:label="@string/title_activity_detalles" >
         </activity>
+
+        <option android:name="ASSETS_FOLDER_RELATIVE_PATH" android:value="/src/main/assets" />
+
     </application>
 
 </manifest>

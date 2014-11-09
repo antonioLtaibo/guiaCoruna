@@ -13,19 +13,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/monumentos"
         android:id="@+id/but_mon"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/monument" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/but_mon"
         android:layout_centerHorizontal="true"
-        android:text="@string/museos"
-        android:id="@+id/but_mus" />
+        android:id="@+id/but_mus"
+        android:background="@drawable/museum" />
 
     <Button
         android:layout_width="wrap_content"
@@ -33,8 +33,8 @@
         android:layout_alignTop="@+id/but_mon"
         android:layout_alignParentEnd="true"
         android:id="@+id/but_noche"
-        android:text="@string/noche"
-        android:layout_toEndOf="@+id/but_mus" />
+        android:layout_toEndOf="@+id/but_mus"
+        android:background="@drawable/bar" />
 
     <Button
         android:layout_width="wrap_content"
@@ -42,23 +42,25 @@
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:id="@+id/but_res"
-        android:text="@string/restaurantes"/>
+        android:background="@drawable/restaurant" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:id="@+id/but_tend"
-        android:text="@string/tiendas"/>
+        android:singleLine="false"
+        android:background="@drawable/tend" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
         android:id="@+id/but_hot"
-        android:text="@string/hoteles"
-        android:layout_toEndOf="@+id/but_mus" />
+        android:layout_toEndOf="@+id/but_mus"
+        android:background="@drawable/hotel"
+        android:singleLine="false"
+        android:layout_alignTop="@+id/but_res"
+        android:layout_alignBottom="@+id/but_res" />
 
 
 </RelativeLayout>

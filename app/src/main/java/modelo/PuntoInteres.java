@@ -11,7 +11,9 @@ public class PuntoInteres implements BaseColumns {
     private String direccion;
     private String telefono;
     private String tipo;
+    private String imageString;
     private Integer id;
+
 
     public static final String COL_ID = "_id";
     public static final String TABLE_NAME = "puntosInteres";
@@ -19,6 +21,7 @@ public class PuntoInteres implements BaseColumns {
     public static final String COLUMN_NAME_DIRECCION = "direccion";
     public static final String COLUMN_NAME_TELEFONO = "telefono";
     public static final String COLUMN_NAME_TIPO = "tipo";
+    public static final String COLUMN_NAME_IMAGEN = "imagen";
 
     public String getNombre() {
         return nombre;
@@ -59,5 +62,14 @@ public class PuntoInteres implements BaseColumns {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
 }

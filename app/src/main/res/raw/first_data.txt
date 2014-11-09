@@ -1,40 +1,25 @@
 {
   "data": [
     {
-      "nombre": "Cafe San Francisco",
-      "direccion": "Calle del Mar 3",
-      "telefono": "123 523 223",
-      "tipo": "NIGHT"
-    },
-    {
-      "nombre": "Pizzeria El Angel",
-      "direccion": "Av Sanjurjo 8",
-      "telefono": "745 523 293",
-      "tipo": "RESTAURANT"
-    },
-    {
-      "nombre": "El Argentino",
-      "direccion": "Plaza de España 45",
-      "telefono": "131 599 733",
-      "tipo": "NIGHT"
-    },
-    {
       "nombre": "Pza Maria Pita",
       "direccion": "Plaza de Maria Pita",
       "telefono": "234 202 020",
-      "tipo": "MONUMENT"
+      "tipo": "MONUMENT",
+      "imagen": "plaza_maria_pita.png"
     },
     {
        "nombre": "Torre De Hercules",
        "direccion": "Av Navarra, s/n",
        "telefono": "981 22 37 30",
-       "tipo": "MONUMENT"
+       "tipo": "MONUMENT",
+       "imagen": "torre_hercules.png"
     },
     {
       "nombre": "Casa De Las Ciencias",
       "direccion": " Parque de Santa Margarita, S/N",
       "telefono": "981 18 98 44",
-      "tipo": "MUSEUM"
+      "tipo": "MUSEUM",
+      "imagen": "casa_ciencias.png"
     }
 
   ]
