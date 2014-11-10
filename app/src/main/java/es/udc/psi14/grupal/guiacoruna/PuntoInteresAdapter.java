@@ -2,6 +2,10 @@ package es.udc.psi14.grupal.guiacoruna;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import modelo.PuntoInteres;
+import util.util;
 
 
 public class PuntoInteresAdapter extends ArrayAdapter<PuntoInteres> {
@@ -48,7 +56,31 @@ public class PuntoInteresAdapter extends ArrayAdapter<PuntoInteres> {
         PuntoInteres puntointeres = data[position];
         holder.title.setText(puntointeres.getNombre());
         holder.detail.setText(puntointeres.getDireccion());
-        holder.imgIcon.setImageResource(R.drawable.ic_launcher);
+        InputStream is = null;
+        boolean loadImageFailed = false;
+        Bitmap image = null;
+        try {
+            //is = this.getResources().getAssets().open("torre_hercules.png");
+            is = getContext().getResources().getAssets().open(puntointeres.getImageString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            loadImageFailed = true;
+        }
+
+        if(loadImageFailed){
+            try {
+                is = getContext().getResources().getAssets().open("noPhoto.png");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(is !=null){
+            image = BitmapFactory.decodeStream(is);
+        }
+
+        holder.imgIcon.setImageBitmap(image);
+
 
         return row;
     }

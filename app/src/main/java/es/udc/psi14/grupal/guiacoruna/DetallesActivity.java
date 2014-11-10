@@ -2,10 +2,12 @@ package es.udc.psi14.grupal.guiacoruna;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,8 +26,10 @@ import modelo.PuntoInteres;
 import modelo.SQLModel;
 import util.util;
 
+import static android.content.Intent.ACTION_DIAL;
 
-public class DetallesActivity extends Activity {
+
+public class DetallesActivity extends Activity implements View.OnClickListener {
 
     SQLModel model;
     int id;
@@ -33,6 +37,7 @@ public class DetallesActivity extends Activity {
     boolean loadImageFailed = false;
     Bitmap image;
 
+    TextView tvName,tvDir,tvPhone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +52,13 @@ public class DetallesActivity extends Activity {
             actionBar = getActionBar();
             actionBar.setIcon(R.drawable.ic_launcher);
             actionBar.setTitle(puntoInteres.getNombre());
-            ((TextView) findViewById(R.id.tv_name)).setText(puntoInteres.getNombre());
-            ((TextView)findViewById(R.id.tv_dir)).setText(puntoInteres.getDireccion());
-            ((TextView)findViewById(R.id.tv_phone)).setText(puntoInteres.getTelefono().toString());
-
+            tvName = (TextView) findViewById(R.id.tv_name);
+            tvName.setText(puntoInteres.getNombre());
+            tvDir = (TextView) findViewById(R.id.tv_dir);
+            tvPhone =(TextView) findViewById(R.id.tv_phone);
+            tvDir.setText(puntoInteres.getDireccion());
+            tvPhone.setText(puntoInteres.getTelefono().toString());
             String imagenString = puntoInteres.getImageString();
-
             ImageView imagen = (ImageView) findViewById(R.id.imagen);
             InputStream is = null;
             try {
@@ -77,6 +83,10 @@ public class DetallesActivity extends Activity {
 
             imagen.setImageBitmap(image);
 
+
+            tvDir.setOnClickListener(this);
+            tvPhone.setOnClickListener(this);
+
         }
 
     }
@@ -99,5 +109,22 @@ public class DetallesActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_phone:
+                int phone = Integer.valueOf(tvPhone.getText().toString().replaceAll(" ",""));
+                Intent intentPhone = new Intent(ACTION_DIAL,Uri.parse("tel:" +phone));
+                startActivity(intentPhone);
+                break;
+            case R.id.tv_dir:
+                String buscar = tvDir.getText().toString();
+                Intent intentMap = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("geo:0,0?q="+buscar));
+                startActivity(intentMap);
+                break;
+        }
     }
 }

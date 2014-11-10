@@ -33,7 +33,6 @@
         android:layout_alignTop="@+id/but_mon"
         android:layout_alignParentEnd="true"
         android:id="@+id/but_noche"
-        android:layout_toEndOf="@+id/but_mus"
         android:background="@drawable/bar" />
 
     <Button
@@ -56,9 +55,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/but_hot"
-        android:layout_toEndOf="@+id/but_mus"
         android:background="@drawable/hotel"
         android:singleLine="false"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/but_res"
         android:layout_alignBottom="@+id/but_res" />
 
