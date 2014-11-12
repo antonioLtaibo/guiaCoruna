@@ -13,6 +13,9 @@ public class PuntoInteres implements BaseColumns {
     private String tipo;
     private String imageString;
     private Integer id;
+    private String coordenadas;
+    private String detalles;
+    private String url;
 
 
     public static final String COL_ID = "_id";
@@ -22,6 +25,9 @@ public class PuntoInteres implements BaseColumns {
     public static final String COLUMN_NAME_TELEFONO = "telefono";
     public static final String COLUMN_NAME_TIPO = "tipo";
     public static final String COLUMN_NAME_IMAGEN = "imagen";
+    public static final String COLUMN_NAME_COORDENADAS = "coordenadas";
+    public static final String COLUMN_NAME_DETALLES = "detalles";
+    public static final String COLUMN_NAME_URL = "url";
 
     public String getNombre() {
         return nombre;
@@ -51,10 +57,7 @@ public class PuntoInteres implements BaseColumns {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
+    public void setTipo(String tipo) { this.tipo = tipo;}
 
     public Integer getId() {
         return id;
@@ -64,7 +67,6 @@ public class PuntoInteres implements BaseColumns {
         this.id = id;
     }
 
-
     public String getImageString() {
         return imageString;
     }
@@ -72,4 +74,16 @@ public class PuntoInteres implements BaseColumns {
     public void setImageString(String imageString) {
         this.imageString = imageString;
     }
+
+    public String getCoordenadas() {return coordenadas;}
+
+    public void setCoordenadas(String coordenadas) { this.coordenadas = coordenadas;}
+
+    public String getDetalles() { return detalles;}
+
+    public void setDetalles(String detalles) { this.detalles = detalles;}
+
+    public String getUrl() { return url;}
+
+    public void setUrl(String url) { this.url = url;}
 }

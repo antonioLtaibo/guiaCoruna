@@ -30,7 +30,10 @@ public class PuntoInteresDBHelper extends SQLiteOpenHelper {
                     PuntoInteres.COLUMN_NAME_DIRECCION + TEXT_TYPE + COMMA_SEP +
                     PuntoInteres.COLUMN_NAME_TELEFONO + TEXT_TYPE + COMMA_SEP +
                     PuntoInteres.COLUMN_NAME_TIPO + TEXT_TYPE + COMMA_SEP +
-                    PuntoInteres.COLUMN_NAME_IMAGEN + TEXT_TYPE +
+                    PuntoInteres.COLUMN_NAME_IMAGEN + TEXT_TYPE + COMMA_SEP +
+                    PuntoInteres.COLUMN_NAME_COORDENADAS + TEXT_TYPE + COMMA_SEP +
+                    PuntoInteres.COLUMN_NAME_DETALLES + TEXT_TYPE + COMMA_SEP +
+                    PuntoInteres.COLUMN_NAME_URL + TEXT_TYPE +
                     " )";
 
     private static final String SQL_DELETE_ENTRIES =

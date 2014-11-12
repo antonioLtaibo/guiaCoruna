@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ import modelo.SQLModel;
 import util.util;
 
 import static android.content.Intent.ACTION_DIAL;
+import static android.view.View.INVISIBLE;
 
 
 public class DetallesActivity extends Activity implements View.OnClickListener {
@@ -37,7 +39,9 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
     boolean loadImageFailed = false;
     Bitmap image;
 
-    TextView tvName,tvDir,tvPhone;
+    View v1,v2,v3,v4;
+
+    TextView tvName,tvDir,tvPhone,tvDetail, tvWeb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +60,31 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
             tvName.setText(puntoInteres.getNombre());
             tvDir = (TextView) findViewById(R.id.tv_dir);
             tvPhone =(TextView) findViewById(R.id.tv_phone);
+
+            if (puntoInteres.getTelefono().toString().isEmpty()){
+                ((LinearLayout)findViewById(R.id.ll3)).setVisibility(INVISIBLE);
+                ((View)findViewById(R.id.lblack3)).setVisibility(INVISIBLE);
+            }else {
+                tvPhone.setText(puntoInteres.getTelefono().toString());
+            }
             tvDir.setText(puntoInteres.getDireccion());
-            tvPhone.setText(puntoInteres.getTelefono().toString());
+            tvDetail = (TextView) findViewById(R.id.tv_detalles);
+            if (puntoInteres.getDetalles().isEmpty()){
+                tvDetail.setVisibility(INVISIBLE);
+            }else {
+                tvDetail.setText(puntoInteres.getDetalles());
+            }
+
+            tvWeb = (TextView) findViewById(R.id.tv_url);
+            if (puntoInteres.getUrl().isEmpty()){
+                ((LinearLayout)findViewById(R.id.ll4)).setVisibility(INVISIBLE);
+                ((View)findViewById(R.id.lblack4)).setVisibility(INVISIBLE);
+            }else {
+                tvWeb.setText(puntoInteres.getUrl());
+            }
+
+
+
             String imagenString = puntoInteres.getImageString();
             ImageView imagen = (ImageView) findViewById(R.id.imagen);
             InputStream is = null;
@@ -86,6 +113,7 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
 
             tvDir.setOnClickListener(this);
             tvPhone.setOnClickListener(this);
+            tvWeb.setOnClickListener(this);
 
         }
 
@@ -120,11 +148,15 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
                 startActivity(intentPhone);
                 break;
             case R.id.tv_dir:
-                String buscar = tvDir.getText().toString();
+                String buscar = puntoInteres.getCoordenadas();
                 Intent intentMap = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("geo:0,0?q="+buscar));
                 startActivity(intentMap);
                 break;
+            case R.id.tv_url:
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(puntoInteres.getUrl()));
+                startActivity(i);
         }
     }
 }

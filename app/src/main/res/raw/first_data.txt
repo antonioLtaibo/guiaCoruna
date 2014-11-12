@@ -3,23 +3,33 @@
     {
       "nombre": "Pza Maria Pita",
       "direccion": "Plaza de Maria Pita",
-      "telefono": "234 202 020",
+      "telefono": "",
       "tipo": "MONUMENT",
-      "imagen": "plaza_maria_pita.png"
+      "imagen": "plaza_maria_pita.png",
+      "coordenadas":"43.3709108 ,-8.396500199999991",
+      "detalles":"Plaza donde se encuentra el edificio del ayuntamiento de la Coruña ,en el centro de esta plaza se encuentra una estatua en honor a Maria Pita",
+      "url":""
     },
     {
        "nombre": "Torre De Hercules",
        "direccion": "Av Navarra, s/n",
        "telefono": "981 22 37 30",
        "tipo": "MONUMENT",
-       "imagen": "torre_hercules.png"
+       "imagen": "torre_hercules.png",
+       "coordenadas": "43.3859571, -8.40649529999996",
+       "detalles": "La Torre de Hercules es una torre y faro situado .Tiene el privilegio de ser el unico faro romano y el más antiguo en funcionamiento del mundo",
+       "url": "http://www.torredeherculesacoruna.com/"
     },
     {
       "nombre": "Casa De Las Ciencias",
       "direccion": " Parque de Santa Margarita, S/N",
       "telefono": "981 18 98 44",
       "tipo": "MUSEUM",
-      "imagen": "casa_ciencias.png"
+      "imagen": "casa_ciencias.png",
+      "coordenadas":"43.3604864,-8.412622300000066",
+      "detalles":"La casa de las Ciencias fue el primer museo cientico de la coruña Tambien es el primer museo interactivo de titularidad publica de España",
+      "url":"http://mc2coruna.org/casa/"
+
     }
 
   ]

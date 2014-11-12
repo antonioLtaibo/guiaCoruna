@@ -7,8 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="es.udc.psi14.grupal.guiacoruna.DetallesActivity"
-    android:background="@android:color/background_light">
+    tools:context="es.udc.psi14.grupal.guiacoruna.DetallesActivity">
 
 
     <TableLayout
@@ -20,11 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_launcher"
-            android:id="@+id/imagen" />
+            android:id="@+id/imagen"/>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0">
 
@@ -49,10 +48,28 @@
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/darker_gray">
+                <TextView
+                    android:text="@string/hello_world"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_gravity="center"
+                    android:id="@+id/tv_detalles"/>
+            </LinearLayout>
+
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@android:color/black"/>
+                android:background="@android:color/black"
+                android:id="@+id/lblack1"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +80,7 @@
                      android:text="@string/hello_world"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:textAppearance="?android:attr/textAppearanceLarge"
+                     android:textAppearance="?android:attr/textAppearanceMedium"
                      android:id="@+id/tv_dir"
                      android:layout_gravity="center"
                      android:drawableLeft="@android:drawable/ic_dialog_map"/>
@@ -71,18 +88,20 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@android:color/black"/>
+                android:background="@android:color/black"
+                android:id="@+id/lblack2"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@android:color/darker_gray">
+                android:background="@android:color/darker_gray"
+                android:id="@+id/ll3">
                  <TextView
                      android:text="@string/hello_world"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:textAppearance="?android:attr/textAppearanceLarge"
+                     android:textAppearance="?android:attr/textAppearanceMedium"
                      android:layout_gravity="center"
                      android:id="@+id/tv_phone"
                      android:drawableLeft="@android:drawable/stat_sys_phone_call"/>
@@ -91,7 +110,30 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@android:color/black"/>
+                android:background="@android:color/black"
+                android:id="@+id/lblack3"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/ll4">
+                <TextView
+                    android:text="@string/hello_world"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_gravity="center"
+                    android:id="@+id/tv_url"
+                    android:drawableLeft="@android:drawable/ic_menu_info_details"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/black"
+                android:id="@+id/lblack4"/>
         </LinearLayout>
     </TableLayout>
 
