@@ -76,7 +76,7 @@ public class PuntoInteresListActiv extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.list, menu);
-        getMenuInflater().inflate(R.menu.my, menu);
+        getMenuInflater().inflate(R.menu.lista, menu);
         return true;
     }
 

@@ -147,19 +147,6 @@
                 android:id="@+id/numItems" />
         </TableRow>
 
-
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TODO"
-            android:id="@+id/mostrar_todo" />
-
-    </TableRow>
-
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -170,6 +157,25 @@
             android:text="INIT"
             android:id="@+id/butt_init" />
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHOTO"
+            android:id="@+id/butt_photo" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/bar"
+            android:id="@+id/imagen"/>
     </TableRow>
 
     </LinearLayout>

@@ -4,31 +4,25 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.File;
 
 import modelo.PuntoInteres;
 import modelo.SQLModel;
-import util.util;
+import util.*;
 
 import static android.content.Intent.ACTION_DIAL;
-import static android.view.View.INVISIBLE;
 
 
 public class DetallesActivity extends Activity implements View.OnClickListener {
@@ -36,8 +30,7 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
     SQLModel model;
     int id;
     PuntoInteres puntoInteres;
-    boolean loadImageFailed = false;
-    Bitmap image;
+    String TAG = "DetallesActivity";
 
     View v1,v2,v3,v4;
 
@@ -62,23 +55,23 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
             tvPhone =(TextView) findViewById(R.id.tv_phone);
 
             if (puntoInteres.getTelefono().toString().isEmpty()){
-                ((LinearLayout)findViewById(R.id.ll3)).setVisibility(INVISIBLE);
-                ((View)findViewById(R.id.lblack3)).setVisibility(INVISIBLE);
+                ((LinearLayout)findViewById(R.id.ll3)).setVisibility(View.GONE);
+                ((View)findViewById(R.id.lblack3)).setVisibility(View.GONE);
             }else {
                 tvPhone.setText(puntoInteres.getTelefono().toString());
             }
             tvDir.setText(puntoInteres.getDireccion());
             tvDetail = (TextView) findViewById(R.id.tv_detalles);
             if (puntoInteres.getDetalles().isEmpty()){
-                tvDetail.setVisibility(INVISIBLE);
+                tvDetail.setVisibility(View.GONE);
             }else {
                 tvDetail.setText(puntoInteres.getDetalles());
             }
 
             tvWeb = (TextView) findViewById(R.id.tv_url);
             if (puntoInteres.getUrl().isEmpty()){
-                ((LinearLayout)findViewById(R.id.ll4)).setVisibility(INVISIBLE);
-                ((View)findViewById(R.id.lblack4)).setVisibility(INVISIBLE);
+                ((LinearLayout)findViewById(R.id.ll4)).setVisibility(View.GONE);
+                ((View)findViewById(R.id.lblack4)).setVisibility(View.GONE);
             }else {
                 tvWeb.setText(puntoInteres.getUrl());
             }
@@ -86,30 +79,19 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
 
 
             String imagenString = puntoInteres.getImageString();
-            ImageView imagen = (ImageView) findViewById(R.id.imagen);
-            InputStream is = null;
-            try {
-                //is = this.getResources().getAssets().open("torre_hercules.png");
-                is = this.getResources().getAssets().open(imagenString);
-            } catch (IOException e) {
-                e.printStackTrace();
-                loadImageFailed = true;
+            ImageView imagenView = (ImageView) findViewById(R.id.imagen);
+
+
+            ImageManagerInternal ImgManagerInt = new ImageManagerInternal(this);
+            ImageManagerExternal ImgManagerExt= new ImageManagerExternal(this);
+
+
+            Bitmap image = ImgManagerInt.getImage(puntoInteres.getImageString());
+            if(image == null){
+                image = ImgManagerExt.getImage(puntoInteres.getImageString());
             }
 
-            if(loadImageFailed){
-                try {
-                    is = this.getResources().getAssets().open("noPhoto.png");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(is !=null){
-                image = BitmapFactory.decodeStream(is);
-            }
-
-            imagen.setImageBitmap(image);
-
+            if(image !=null) imagenView.setImageBitmap(image);
 
             tvDir.setOnClickListener(this);
             tvPhone.setOnClickListener(this);
@@ -117,6 +99,14 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
 
         }
 
+    }
+
+    public void galleryAddPic(String path) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(path);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 
 

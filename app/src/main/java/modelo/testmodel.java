@@ -1,17 +1,34 @@
 package modelo;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
 import es.udc.psi14.grupal.guiacoruna.R;
+import util.ImageManagerAssets;
+import util.ImageManagerExternal;
+import util.ImageManagerInternal;
 
 
 public class testmodel extends Activity implements View.OnClickListener {
@@ -32,11 +49,18 @@ public class testmodel extends Activity implements View.OnClickListener {
     RadioButton buscar_tipo;
     RadioButton buscar_id;
 
-    Button mostrar_todo;
-
     Button butt_init;
+    Button butt_photo;
+
+    ImageView imagen;
 
     SQLModel model;
+
+    String TAG ="TestModel";
+    Bitmap bitmapImagen;
+    String imageString;
+
+    static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +88,69 @@ public class testmodel extends Activity implements View.OnClickListener {
         buscar_tipo = (RadioButton) findViewById(R.id.buscar_tipo);
         buscar_id = (RadioButton) findViewById(R.id.buscar_id);
 
-        mostrar_todo = (Button) findViewById(R.id.mostrar_todo);
-
         butt_init = (Button) findViewById(R.id.butt_init);
         butt_init.setOnClickListener(this);
 
+        butt_photo = (Button) findViewById(R.id.butt_photo);
+        butt_photo.setOnClickListener(this);
+
+        imagen = (ImageView) findViewById(R.id.imagen);
     }
+
+
+
+    String mCurrentPhotoPath;
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String imageFileName = "APP_LA_CORUNNA_" +et_nombre.getText().toString();
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        /*File image = File.createTempFile(
+                imageFileName,  // prefix
+                ".png",         // suffix
+                storageDir      // directory
+        );*/
+
+        File image = new File(storageDir,imageFileName+".png");
+        imageString = imageFileName+".png";
+
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.d(TAG, "Couldn't create image");
+                ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT , Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            File f = new File(mCurrentPhotoPath);
+            Bitmap image = null;
+            try {
+                image = BitmapFactory.decodeStream(new FileInputStream(f));
+                Log.d(TAG, "Image was created successfully on: "+mCurrentPhotoPath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            bitmapImagen = image;
+        }
+    }
+
 
 
     @Override
@@ -80,6 +161,7 @@ public class testmodel extends Activity implements View.OnClickListener {
             pi.setNombre(et_nombre.getText().toString());
             pi.setDireccion(et_direccion.getText().toString());
             pi.setTipo(et_tipo.getText().toString());
+            pi.setImageString(imageString);
             boolean exito = model.addPuntoInteres(pi);
 
             if(exito){
@@ -110,6 +192,22 @@ public class testmodel extends Activity implements View.OnClickListener {
             numItems.setText(num.toString());
         }else if(view == butt_init){
             model.loadInitData();
+        }else if(view == butt_photo) {
+            String state = Environment.getExternalStorageState();
+            if (Environment.MEDIA_MOUNTED.equals(state)) {
+                if (et_nombre.getText().toString().isEmpty()) {
+                    Toast.makeText(this,"Especifica un nombre primero",Toast.LENGTH_SHORT).show();
+                } else {
+                    this.dispatchTakePictureIntent();
+                    if (bitmapImagen != null) imagen.setImageBitmap(bitmapImagen);
+
+                    Log.d(TAG, "Saving image to external");
+                    ImageManagerExternal ImgManager = new ImageManagerExternal(this);
+                    ImgManager.saveToExternalSorage(bitmapImagen,imageString);
+                }
+            } else{
+                Toast.makeText(this,"No hay una tarjeta SD",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

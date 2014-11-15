@@ -5,11 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,6 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import es.udc.psi14.grupal.guiacoruna.R;
+import util.ImageManagerAssets;
+import util.ImageManagerInternal;
 
 /**
  * Created by tributo on 1/11/14.
@@ -26,11 +34,41 @@ import es.udc.psi14.grupal.guiacoruna.R;
 public class SQLModel implements ModelInterface {
     Context context;
     private SQLiteDatabase db;
+    String TAG = "SQLModel";
 
     public SQLModel(Context context){
 
         this.context=context;
     }
+
+    String filenameLock = "defaultDataLoaded.lock";
+
+
+    public boolean DefaultDataExists(){
+        FileInputStream inputStream;
+        try {
+            inputStream = context.openFileInput(filenameLock);
+            inputStream.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void createLockDefaultData(){
+        FileOutputStream outputStream;
+        try {
+            outputStream = context.openFileOutput(filenameLock, Context.MODE_PRIVATE);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public boolean addPuntoInteres(PuntoInteres pi) {
@@ -284,6 +322,14 @@ public class SQLModel implements ModelInterface {
 
 
     public void loadInitData(){
+
+        if(this.DefaultDataExists()){
+            Toast.makeText(context,"Default Data Already Loaded",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        this.createLockDefaultData();
+
         InputStream is = context.getResources().openRawResource(R.raw.first_data);
         final char[] buffer = new char[512];
         final StringBuilder out = new StringBuilder();
@@ -307,6 +353,12 @@ public class SQLModel implements ModelInterface {
         }
         String fileString = out.toString();
 
+        Log.d(TAG, "Saving image to gallery");
+        ImageManagerInternal ImgManager = new ImageManagerInternal(context);
+        ImageManagerAssets assets = new ImageManagerAssets(context);
+        Bitmap image;
+        String imageString;
+
         JSONObject obj = null;
         try {
             obj = new JSONObject(fileString);
@@ -325,12 +377,18 @@ public class SQLModel implements ModelInterface {
                 pi.setUrl(arr.getJSONObject(i).getString("url"));
 
                 this.addPuntoInteres(pi);
+
+                imageString = pi.getImageString();
+
+                String imageStringIcon = imageString.substring(0,imageString.lastIndexOf("."))+"_icon.png";
+                image = assets.getImage(imageString);
+                if(image != null) ImgManager.saveToInternalSorage(image,imageString);
+                image = assets.getImageIcon(imageString);
+                if(image != null) ImgManager.saveToInternalSorage(image,imageStringIcon);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
 }

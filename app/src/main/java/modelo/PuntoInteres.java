@@ -7,15 +7,15 @@ import android.provider.BaseColumns;
  */
 public class PuntoInteres implements BaseColumns {
 
-    private String nombre;
-    private String direccion;
-    private String telefono;
-    private String tipo;
-    private String imageString;
+    private String nombre="";
+    private String direccion="";
+    private String telefono="";
+    private String tipo="";
+    private String imageString="";
     private Integer id;
-    private String coordenadas;
-    private String detalles;
-    private String url;
+    private String coordenadas="";
+    private String detalles="";
+    private String url="";
 
 
     public static final String COL_ID = "_id";
@@ -77,13 +77,25 @@ public class PuntoInteres implements BaseColumns {
 
     public String getCoordenadas() {return coordenadas;}
 
-    public void setCoordenadas(String coordenadas) { this.coordenadas = coordenadas;}
+    public void setCoordenadas(String coordenadas) {
+        if (coordenadas != null){
+            this.coordenadas = coordenadas;
+        }
+    }
 
     public String getDetalles() { return detalles;}
 
-    public void setDetalles(String detalles) { this.detalles = detalles;}
+    public void setDetalles(String detalles) {
+        if (detalles != null){
+            this.detalles = detalles;
+        }
+    }
 
     public String getUrl() { return url;}
 
-    public void setUrl(String url) { this.url = url;}
+    public void setUrl(String url) {
+        if (url != null){
+            this.url = url;
+        }
+    }
 }
