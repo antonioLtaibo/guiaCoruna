@@ -58,7 +58,7 @@ public class testmodel extends Activity implements View.OnClickListener {
 
     String TAG ="TestModel";
     Bitmap bitmapImagen;
-    String imageString;
+    String imageString = "";
 
     static final int REQUEST_TAKE_PHOTO = 1;
 
