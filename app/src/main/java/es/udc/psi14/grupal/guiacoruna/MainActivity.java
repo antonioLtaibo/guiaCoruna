@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import modelo.SQLModel;
 import modelo.testmodel;
 import util.util;
 
@@ -33,6 +34,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         butTend.setOnClickListener(this);
         butMon.setOnClickListener(this);
         butHot.setOnClickListener(this);
+
+        SQLModel model;
+        model = new SQLModel(this);
+        model.loadInitData();
+
 
 
 

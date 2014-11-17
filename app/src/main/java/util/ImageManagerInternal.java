@@ -45,8 +45,11 @@ public class ImageManagerInternal implements ImageManager{
 
     @Override
     public Bitmap getImageIcon(String filename) {
-        Log.d(TAG,"Looking for ICON file "+filename +" in Internal Storage");
-        String realFilename = filename.substring(0,filename.indexOf("."))+"_icon.png";
+        Log.d(TAG, "Looking for ICON file " + filename + " in Internal Storage");
+        if (filename.equals("")){
+            filename = "noPhoto.png";
+        }
+        String realFilename = filename.substring(0, filename.indexOf(".")) + "_icon.png";
         Bitmap image = null;
         boolean loadImageFailed = false;
         ContextWrapper cw = new ContextWrapper(ctx);

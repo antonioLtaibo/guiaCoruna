@@ -79,16 +79,20 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
 
 
             String imagenString = puntoInteres.getImageString();
+            if (imagenString.isEmpty()){
+                imagenString = "noPhoto.png";
+            }
             ImageView imagenView = (ImageView) findViewById(R.id.imagen);
+
 
 
             ImageManagerInternal ImgManagerInt = new ImageManagerInternal(this);
             ImageManagerExternal ImgManagerExt= new ImageManagerExternal(this);
 
 
-            Bitmap image = ImgManagerInt.getImage(puntoInteres.getImageString());
+            Bitmap image = ImgManagerInt.getImage(imagenString);
             if(image == null){
-                image = ImgManagerExt.getImage(puntoInteres.getImageString());
+                image = ImgManagerExt.getImage(imagenString);
             }
 
             if(image !=null) imagenView.setImageBitmap(image);

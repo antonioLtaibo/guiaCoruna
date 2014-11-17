@@ -29,7 +29,16 @@
       "coordenadas":"43.3604864,-8.412622300000066",
       "detalles":"La casa de las Ciencias fue el primer museo cientico de la coruña Tambien es el primer museo interactivo de titularidad publica de España",
       "url":"http://mc2coruna.org/casa/"
-
+    },
+    {
+        "nombre": "fic",
+        "direccion": " Parque de Santa Margarita, S/N",
+        "telefono": "981 18 98 44",
+        "tipo": "MUSEUM",
+        "imagen": "",
+        "coordenadas":"43.3604864,-8.412622300000066",
+        "detalles":"La casa de las Ciencias fue el primer museo cientico de la coruña Tambien es el primer museo interactivo de titularidad publica de España",
+        "url":"http://mc2coruna.org/casa/"
     }
 
   ]

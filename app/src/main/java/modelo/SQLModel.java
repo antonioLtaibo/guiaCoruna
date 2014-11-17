@@ -324,7 +324,7 @@ public class SQLModel implements ModelInterface {
     public void loadInitData(){
 
         if(this.DefaultDataExists()){
-            Toast.makeText(context,"Default Data Already Loaded",Toast.LENGTH_SHORT).show();
+           Log.d(TAG, "Default Data Already Loaded");
             return;
         }
 
@@ -380,15 +380,22 @@ public class SQLModel implements ModelInterface {
 
                 imageString = pi.getImageString();
 
-                String imageStringIcon = imageString.substring(0,imageString.lastIndexOf("."))+"_icon.png";
-                image = assets.getImage(imageString);
-                if(image != null) ImgManager.saveToInternalSorage(image,imageString);
-                image = assets.getImageIcon(imageString);
-                if(image != null) ImgManager.saveToInternalSorage(image,imageStringIcon);
+                if (!imageString.isEmpty()) {
+                    String imageStringIcon = imageString.substring(0, imageString.lastIndexOf(".")) + "_icon.png";
+                    image = assets.getImage(imageString);
+                    if (image != null) ImgManager.saveToInternalSorage(image, imageString);
+                    image = assets.getImageIcon(imageString);
+                    if (image != null) ImgManager.saveToInternalSorage(image, imageStringIcon);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        image = assets.getImage("noPhoto.png");
+        ImgManager.saveToInternalSorage(image,"noPhoto.png");
+        image = assets.getImageIcon("noPhoto.png");
+        ImgManager.saveToInternalSorage(image,"noPhoto_icon.png");
+
     }
 
 }

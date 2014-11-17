@@ -45,6 +45,9 @@ public class ImageManagerExternal implements ImageManager{
     @Override
     public Bitmap getImageIcon(String filename) {
         Log.d(TAG,"Looking for ICON file "+filename +" in External Storage");
+        if (filename.isEmpty()){
+            filename = "noPhoto.png";
+        }
         String realFilename = filename.substring(0,filename.indexOf("."))+"_icon.png";
         Bitmap image = null;
         boolean loadImageFailed = false;
