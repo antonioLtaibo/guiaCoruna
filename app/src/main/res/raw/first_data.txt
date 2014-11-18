@@ -21,27 +21,104 @@
        "url": "http://www.torredeherculesacoruna.com/"
     },
     {
-      "nombre": "Casa De Las Ciencias",
-      "direccion": " Parque de Santa Margarita, S/N",
-      "telefono": "981 18 98 44",
-      "tipo": "MUSEUM",
-      "imagen": "casa_ciencias.png",
-      "coordenadas":"43.3604864,-8.412622300000066",
-      "detalles":"La casa de las Ciencias fue el primer museo cientico de la coruña Tambien es el primer museo interactivo de titularidad publica de España",
-      "url":"http://mc2coruna.org/casa/"
+       "nombre": "Castillo de San Antón",
+       "direccion": "Paseo Alcalde Francisco Vázquez 2",
+       "telefono": "981 18 98 50",
+       "tipo": "MONUMENT",
+       "imagen": "Castillo_San_Anton.png",
+       "coordenadas": "43.3657,-8.3877",
+       "detalles": "El Castillo de San Antón es un castillo del siglo XVI que formó parte de una red estratégica de castillos y baterías para defender la ciudad de La Coruña.",
+       "url": "http://www.coruna.es/servlet/Satellite?pagename=cultura/Page/Generico-Page-Generica&cid=1322783576553&itemID=1149055937727&itemType=Entidad"
     },
     {
-        "nombre": "fic",
-        "direccion": " Parque de Santa Margarita, S/N",
-        "telefono": "981 18 98 44",
-        "tipo": "MUSEUM",
-        "imagen": "",
-        "coordenadas":"43.3604864,-8.412622300000066",
-        "detalles":"La casa de las Ciencias fue el primer museo cientico de la coruña Tambien es el primer museo interactivo de titularidad publica de España",
-        "url":"http://mc2coruna.org/casa/"
-    }
-
-
-
+       "nombre": "Parroquia de Santiago",
+       "direccion": "Calle de Parrote, 1",
+       "telefono": "981 20 56 96",
+       "tipo": "MONUMENT",
+       "imagen": "Parroquia_De_Santiago.png",
+       "coordenadas": "43.369267,-8.3939",
+       "detalles": "La Iglesia de Santiago es un templo de estilo románico cristiano situado en el casco antiguo de la ciudad.Fue construida en la segunda mitad del siglo XII, aunque sufrió posteriores reformas.",
+       "url": ""
+    },
+    {
+       "nombre": "Colegiata de Santa María del Campo",
+       "direccion": "Plaza Santa María 1",
+       "telefono": "981 92 30 93",
+       "tipo": "MONUMENT",
+       "imagen": "Colegiata_de_Santa_Maria.png",
+       "coordenadas": "43.3707749,-8.3931002",
+       "detalles": "La Iglesia de Santiago es un templo de estilo románico cristiano situado en el casco antiguo de la ciudad.Fue construida en la segunda mitad del siglo XII, aunque sufrió posteriores reformas.",
+       "url": ""
+    },
+    {
+       "nombre": "Jamonería La Leonesa",
+       "direccion": "Calle Santo Domingo, 2",
+       "telefono": "981 21 29 44",
+       "tipo": "RESTAURANT",
+       "imagen": "Jamoneria_La_Leonesa.png",
+       "coordenadas": "43.369847,-8.392257",
+       "detalles": "Especialidad en productos ibericos de bellota y embutidos artesanos de León.",
+       "url": ""
+    },
+    {
+       "nombre": "Meson Os Trasnos",
+       "direccion": "Rua de San Mateo 10, Bajo",
+       "telefono": "981 91 58 67",
+       "tipo": "RESTAURANT",
+       "imagen": "Meson_Os_Trasnos.png",
+       "coordenadas": "",
+       "detalles": "Principalmente Cervecería, tambien ofrecemos cocina española y local, raciones abundantes y servicio de tapas.",
+       "url": ""
+    },
+     {
+       "nombre": "Arbore Da Veira",
+       "direccion": "C/ San Andres, 109 bajo",
+       "telefono": "981 07 89 14",
+       "tipo": "RESTAURANT",
+       "imagen": "Arbore_Da_Veira.png",
+       "coordenadas": "43.3689366,-8.4042999",
+       "detalles": "Cocina de Autor. Acogedor restaurante con mobiliario de madera cruda de roble y cocina de autor del reconocido chef Luis Veira.",
+       "url": ""
+     },
+     {
+       "nombre": "McDonalds",
+       "direccion": "Ronda de Outeiro, 419",
+       "telefono": "981 10 11 78",
+       "tipo": "RESTAURANT",
+       "imagen": "McDonalds.png",
+       "coordenadas": "43.3707299,-8.422986",
+       "detalles": "Hamburguesas y comida rápida",
+       "url": ""
+     },
+       {
+         "nombre": "Sweet Place",
+         "direccion": "Calle Riego de Agua, 2,",
+         "telefono": "881 94 19 26",
+         "tipo": "RESTAURANT",
+         "imagen": "Sweet_Place.png",
+         "coordenadas": "43.3706741,-8.3968123",
+         "detalles": "Hamburguesas y comida rápida",
+         "url": ""
+       },
+      {
+        "nombre": "Corte Ingles",
+        "direccion": "Ramón y Cajal, 57 y 59",
+        "telefono": "981 18 94 00",
+        "tipo": "SHOP",
+        "imagen": "Corte_Ingles.png",
+        "coordenadas": "43.3546952,-8.4035504",
+        "detalles": "Hipermercado",
+        "url": "http://www.elcorteingles.es/centroscomerciales/centroscomerciales/cargarAplicacionCentro.do?identificador=63&idComunidad=9"
+      },
+     {
+       "nombre": "Zara",
+       "direccion": "Calle de Juan Flórez, 64 - 66",
+       "telefono": "981 25 38 47",
+       "tipo": "SHOP",
+       "imagen": "Zara.png",
+       "coordenadas": "43.363555,-8.408216",
+       "detalles": "Primera tienda de Zara abierta por Amancio Ortega en La Coruña.",
+       "url": "http://www.zara.com/"
+     }
   ]
 }
