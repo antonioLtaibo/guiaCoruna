@@ -143,7 +143,7 @@
      {
        "nombre": "Museo Arqueológico e Histórico Castillo de San Antón ",
        "direccion": "Paseo Alcalde Francisco Vazquez, 2, A",
-       "telefono": "981 189 850",
+       "telefono": "981 18 98 50",
        "tipo": "MUSEUM",
        "imagen": "san_anton.png",
        "coordenadas": "43.3657984,-8.388310499999989",
@@ -160,6 +160,47 @@
         "detalles": "Museo Nacional de ciencia y tecnologia",
         "url": "http://www.muncyt.es/portal/site/MUNCYT/menuitem.b61c475b8dc0dd8a24b3171001432ea0/?vgnextoid=bf0c3efc68c5a210VgnVCM1000001034e20aRCRD"
      },
+     {
+         "nombre": "Melia Maria Pita",
+         "direccion": "Av Pedro Barrié de la Maza, 3",
+         "telefono": "902 14 44 40",
+         "tipo": "HOTEL",
+         "imagen": "melia.png",
+         "coordenadas": "43.37519294533904,-8.40283028771421",
+         "detalles": "Hotel de 4 estrellas situado enfrente a la playa del orzan",
+         "url": "http://www.melia.com/es/hoteles/espana/a-coruna/melia-maria-pita/index.html"
+      },
+      {
+       "nombre": "Atica 21",
+       "direccion": "Rúa Enrique Mariñas, 34",
+       "telefono": "981 17 92 99",
+       "tipo": "HOTEL",
+       "imagen": "attica.png",
+       "coordenadas": "43.33971896628094,-8.404351779840113",
+       "detalles": "Hotel de 4 estrellas",
+       "url": "http://www.attica21hotels.com/es/5/hotel-attica21-coruna/"
+      },
+      {
+         "nombre": "AC Hotel A Coruña",
+         "direccion": " Rúa Enrique Mariñas Romero Periodista, 34",
+         "telefono": "981 17 54 90",
+         "tipo": "HOTEL",
+         "imagen": "accoruna.png",
+         "coordenadas": "43.33946146502071,-8.404083558938623",
+         "detalles": "Hotel de 4 estrellas ",
+         "url": "http://www.espanol.marriott.com/hotels/travel/lcgco-ac-hotel-a-coruna"
+      },
+      {
+       "nombre": "Hesperia Finisterre",
+       "direccion": " Paseo del Parrote, 2-4",
+       "telefono": "981 20 54 00",
+       "tipo": "HOTEL",
+       "imagen": "hesperia.png",
+       "coordenadas": "43.368708183377045,-8.392743179223658",
+       "detalles": "Hotel de 5 estrellas",
+       "url": "http://www.hotelfinisterre.net/microweb.php?id=160"
+       }
+
 
 
 
