@@ -5,8 +5,11 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <!--
+
     <item android:id="@+id/action_test_model"
         android:title="Test Model"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="never" /
+     -->
 </menu>
