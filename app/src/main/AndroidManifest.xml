@@ -33,7 +33,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <option android:name="ASSETS_FOLDER_RELATIVE_PATH" android:value="/src/main/assets" />
+        <action android:name="ASSETS_FOLDER_RELATIVE_PATH" android:value="/src/main/assets" />
 
     </application>
 

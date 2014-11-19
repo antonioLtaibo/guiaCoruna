@@ -119,6 +119,54 @@
        "coordenadas": "43.363555,-8.408216",
        "detalles": "Primera tienda de Zara abierta por Amancio Ortega en La Coruña.",
        "url": "http://www.zara.com/"
-     }
+     },
+     {
+        "nombre": "Aquarium Finisterrae",
+        "direccion": "Paseo Marítimo Alcalde Francisco Vázquez, 34, 15002 A Coruña, C",
+        "telefono": "981 18 98 42",
+        "tipo": "MUSEUM",
+        "imagen": "aquarium.png",
+        "coordenadas": "43.3840058, -8.409738000000061",
+        "detalles": "Pretende promover el conocimiento del océano y educar actitudes positivas de cariño hacia el medio marino, así como contribuir al conocimiento científico de la vida marina",
+        "url": "http://mc2coruna.org/aquarium/"
+     },
+     {
+      "nombre": "Casa del Hombre",
+      "direccion": "C/ Angel Rebollo, 91, 15002 A Coruña, C",
+      "telefono": "981 18 98 40",
+      "tipo": "MUSEUM",
+      "imagen": "domus.png",
+      "coordenadas": "43.3776377, -8.406531099999938",
+      "detalles": "Museo cultural de carácter científico ubicado. Es el primer museo interactivo que trata de una forma global y monográfica el ser humano",
+      "url": "http://mc2coruna.org/domus/"
+     },
+     {
+       "nombre": "Museo Arqueológico e Histórico Castillo de San Antón ",
+       "direccion": "Paseo Alcalde Francisco Vazquez, 2, A",
+       "telefono": "981 189 850",
+       "tipo": "MUSEUM",
+       "imagen": "san_anton.png",
+       "coordenadas": "43.3657984,-8.388310499999989",
+       "detalles": "",
+       "url": "http://www.coruna.es/servlet/Satellite?pagename=Nex/Page/Nex-Generica&cid=1207120205273&argIdioma=es&itemID=1149055937727&itemType=Entidad"
+     },
+     {
+        "nombre": "MUNCYT",
+        "direccion": "Paseo Alcalde Francisco Vazquez, 2, A",
+        "telefono": "900 10 01 34",
+        "tipo": "MUSEUM",
+        "imagen": "muncyt.png",
+        "coordenadas": "43.373221,-8.420419000000038",
+        "detalles": "Museo Nacional de ciencia y tecnologia",
+        "url": "http://www.muncyt.es/portal/site/MUNCYT/menuitem.b61c475b8dc0dd8a24b3171001432ea0/?vgnextoid=bf0c3efc68c5a210VgnVCM1000001034e20aRCRD"
+     },
+
+
+
+
+
+
+
+
   ]
 }
