@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_array">
+        <item>RESTAURANT</item>
+        <item>MUSEUM</item>
+        <item>MONUMENT</item>
+        <item>NIGHT</item>
+        <item>HOTEL</item>
+        <item>SHOP</item>
+    </string-array>
+    <string-array name="list_view_menu">
+        <item>EDIT</item>
+        <item>REMOVE</item>
+    </string-array>
+</resources>

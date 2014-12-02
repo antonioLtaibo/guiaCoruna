@@ -14,5 +14,6 @@
     <string name="title_activity_testmodel">testmodel</string>
     <string name="title_activity_test">test</string>
     <string name="title_activity_detalles">DetallesActivity</string>
+    <string name="title_activity_add_punto_interes">AddPuntoInteres</string>
 
 </resources>

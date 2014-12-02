@@ -28,12 +28,14 @@ import es.udc.psi14.grupal.guiacoruna.R;
 import util.ImageManagerAssets;
 import util.ImageManagerInternal;
 
+import util.util;
+import util.InvalidPIException;
+
 /**
  * Created by tributo on 1/11/14.
  */
 public class SQLModel implements ModelInterface {
     Context context;
-    private SQLiteDatabase db;
     String TAG = "SQLModel";
 
     public SQLModel(Context context){
@@ -42,6 +44,7 @@ public class SQLModel implements ModelInterface {
     }
 
     String filenameLock = "defaultDataLoaded.lock";
+
 
 
     public boolean DefaultDataExists(){
@@ -70,15 +73,42 @@ public class SQLModel implements ModelInterface {
 
 
 
+    public void validatePI(PuntoInteres pi) throws InvalidPIException {
+        String t = pi.getTipo();
+
+        if(t.compareTo(util.TYPE_HOTEL)!=0 && t.compareTo(util.TYPE_SHOP)!=0 && t.compareTo(util.TYPE_RESTAURANT)!=0 &&
+                t.compareTo(util.TYPE_NIGHT)!=0 && t.compareTo(util.TYPE_MUSEUM)!=0 && t.compareTo(util.TYPE_MONUMENT)!=0)
+            throw new InvalidPIException("Invalid type.");
+
+        if (pi.getDireccion().isEmpty() || pi.getNombre().isEmpty() || pi.getTelefono().isEmpty()) {
+            throw new InvalidPIException("Some field was left blank.");
+        }
+    }
+
+
+
     @Override
-    public boolean addPuntoInteres(PuntoInteres pi) {
+    public boolean removePuntoInteres(String id) {
+        boolean status=false;
+        SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        if(this.findByID(id)==null){
+            return false;
+        }else{
+            status = db.delete(PuntoInteres.TABLE_NAME, PuntoInteres.COL_ID + "=" + id, null) > 0;
+        }
+        db.close();
+        return status;
+    }
+
+
+    @Override
+    public boolean addPuntoInteres(PuntoInteres pi) throws InvalidPIException {
+        SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        this.validatePI(pi);
 
         try {
-            SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
-
-            // Gets the data repository in write mode
-            db = helper.getWritableDatabase();
-
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
             values.put(PuntoInteres.COLUMN_NAME_DIRECCION, pi.getDireccion());
@@ -105,10 +135,12 @@ public class SQLModel implements ModelInterface {
     }
 
 
-    private Cursor findByField(String selection, String[] selectionArgs) {
-        try {
-            SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
 
+
+    private Cursor findByField(String selection, String[] selectionArgs) {
+        SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try {
             db = helper.getReadableDatabase();
 
             // Define a projection that specifies which columns from the database
@@ -155,6 +187,8 @@ public class SQLModel implements ModelInterface {
 
 
     private PuntoInteres parseSingleResult(Cursor cursor){
+        SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
         try{
             boolean hasData = cursor.moveToFirst();
             if(hasData) {
@@ -209,10 +243,6 @@ public class SQLModel implements ModelInterface {
         }catch (Exception ex){
             ex.printStackTrace();
             return null;
-        } finally {
-            if (cursor != null && !cursor.isClosed())
-                cursor.close();
-            db.close();
         }
     }
 
@@ -274,10 +304,6 @@ public class SQLModel implements ModelInterface {
         }catch (Exception ex){
             ex.printStackTrace();
             return null;
-        } finally {
-            if (cursor != null && !cursor.isClosed())
-                cursor.close();
-            db.close();
         }
     }
 
@@ -376,7 +402,11 @@ public class SQLModel implements ModelInterface {
                 pi.setDetalles(arr.getJSONObject(i).getString("detalles"));
                 pi.setUrl(arr.getJSONObject(i).getString("url"));
 
-                this.addPuntoInteres(pi);
+                try {
+                    this.addPuntoInteres(pi);
+                } catch (InvalidPIException e) {
+                    e.printStackTrace();
+                }
 
                 imageString = pi.getImageString();
 

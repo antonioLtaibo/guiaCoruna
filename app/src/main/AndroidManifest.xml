@@ -6,11 +6,11 @@
         android:allowBackup="true"
         android:icon="@drawable/torre_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,27 +20,35 @@
         <activity
             android:name=".PuntoInteresListActiv"
             android:label="@string/title_activity_list"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="modelo.testmodel"
             android:label="@string/title_activity_testmodel"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".DetallesActivity"
             android:label="@string/title_activity_detalles"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
 
-        <action android:name="ASSETS_FOLDER_RELATIVE_PATH" android:value="/src/main/assets" />
+        <action
+            android:name="ASSETS_FOLDER_RELATIVE_PATH"
+            android:value="/src/main/assets" />
 
+        <activity
+            android:name=".AddPuntoInteres"
+            android:label="@string/title_activity_add_punto_interes" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-
 
 </manifest>

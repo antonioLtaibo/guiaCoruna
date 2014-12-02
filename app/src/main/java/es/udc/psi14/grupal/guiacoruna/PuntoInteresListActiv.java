@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,8 +69,41 @@ public class PuntoInteresListActiv extends Activity {
                 startActivity(intent);
             }
         });
+        registerForContextMenu(listView);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v == listView) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            //menu.setHeaderTitle();
+            String[] menuItems = getResources().getStringArray(R.array.list_view_menu);
+            for (int i = 0; i < menuItems.length; i++) {
+                menu.add(Menu.NONE, i, i, menuItems[i]);
+            }
+        }
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int menuItemIndex = item.getItemId();
+        String[] menuItems = getResources().getStringArray(R.array.list_view_menu);
+        String menuItemName = menuItems[menuItemIndex];
+        PuntoInteres pi = (PuntoInteres) listView.getItemAtPosition(info.position);
+        String itemName = pi.getNombre();
+
+        if(menuItemName.compareTo("EDIT")==0){
+            Toast.makeText(this, "EDIT on "+itemName , Toast.LENGTH_SHORT).show();
+        }else if(menuItemName.compareTo("REMOVE")==0){
+            Toast.makeText(this, "REMOVE on "+itemName, Toast.LENGTH_SHORT).show();
+            model.removePuntoInteres(pi.getId().toString());
+        }
+
+        return true;
+    }
 
 
     @Override

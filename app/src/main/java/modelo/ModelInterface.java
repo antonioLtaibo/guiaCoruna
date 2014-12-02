@@ -2,13 +2,17 @@ package modelo;
 
 import java.util.List;
 
+import util.InvalidPIException;
+
 /**
  * Created by tributo on 29/10/14.
  */
 public interface ModelInterface {
 
     //Se devuelve si se pudo o no insertar el elemento
-    public boolean addPuntoInteres(PuntoInteres pi);
+    public boolean addPuntoInteres(PuntoInteres pi) throws InvalidPIException;
+
+    public boolean removePuntoInteres(String id);
 
     //Se usará el nombre como identificador.
     public PuntoInteres findByName(String nombre);
