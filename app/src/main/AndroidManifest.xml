@@ -6,11 +6,11 @@
         android:allowBackup="true"
         android:icon="@drawable/torre_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,23 +20,32 @@
         <activity
             android:name=".PuntoInteresListActiv"
             android:label="@string/title_activity_list"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="modelo.testmodel"
             android:label="@string/title_activity_testmodel"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".DetallesActivity"
             android:label="@string/title_activity_detalles"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
 
-        <action
-            android:name="ASSETS_FOLDER_RELATIVE_PATH"
-            android:value="/src/main/assets" />
+        <action android:name="ASSETS_FOLDER_RELATIVE_PATH" android:value="/src/main/assets" />
 
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
         <activity
             android:name=".AddPuntoInteres"
             android:label="@string/title_activity_add_punto_interes" >
@@ -50,5 +59,14 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

@@ -69,7 +69,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Intent i = new Intent(this, PuntoInteresListActiv.class);
+        Intent i = new Intent(this, MapsActivity.class);
+        //descomentar la linea que nos interesa en cada caso hasta que se implemente el tab view
+        //Intent i = new Intent(this, PuntoInteresListActiv.class);
         switch (view.getId()){
             case R.id.but_mus:
                 i.putExtra(util.TAG_TYPE, util.TYPE_MUSEUM);
