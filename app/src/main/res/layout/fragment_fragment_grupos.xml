@@ -1,0 +1,65 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="es.udc.psi14.grupal.guiacoruna.FragmentGrupos"
+    android:background="@android:color/background_light">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/but_mon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/monument" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/but_mon"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/but_mus"
+            android:background="@drawable/museum" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/but_mon"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/but_noche"
+            android:background="@drawable/bar" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/but_res"
+            android:background="@drawable/restaurant" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/but_tend"
+            android:singleLine="false"
+            android:background="@drawable/tend" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/but_hot"
+            android:background="@drawable/hotel"
+            android:singleLine="false"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/but_res"
+            android:layout_alignBottom="@+id/but_res" />
+    </RelativeLayout>
+
+
+</FrameLayout>

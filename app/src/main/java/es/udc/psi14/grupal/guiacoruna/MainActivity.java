@@ -1,8 +1,19 @@
 package es.udc.psi14.grupal.guiacoruna;
 
-import android.app.Activity;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,15 +24,25 @@ import modelo.testmodel;
 import util.util;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements
+        ActionBar.TabListener, FragmentGrupos.OnFragmentInteractionListener,FragmentMapa.OnFragmentInteractionListener {
 
 
     private Button butMus,butHot,butNoche,butTend,butRes,butMon;
+
+    public static FragmentManager fragmentManager;
+    private ViewPager viewPager;
+    private TabsPagerAdapter mAdapter;
+    private ActionBar actionBar;
+    // Tab titles
+    private String[] tabs = { "Grupos", "Mapa"};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        butMus = (Button) findViewById(R.id.but_mus);
+        /*butMus = (Button) findViewById(R.id.but_mus);
         butHot = (Button) findViewById(R.id.but_hot);
         butNoche = (Button) findViewById(R.id.but_noche);
         butTend = (Button) findViewById(R.id.but_tend);
@@ -33,11 +54,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
         butNoche.setOnClickListener(this);
         butTend.setOnClickListener(this);
         butMon.setOnClickListener(this);
-        butHot.setOnClickListener(this);
+        butHot.setOnClickListener(this);*/
 
         SQLModel model;
         model = new SQLModel(this);
         model.loadInitData();
+
+        fragmentManager = getSupportFragmentManager();
+
+
+        /****/
+        // Initilization
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        actionBar = getActionBar();
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(mAdapter);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // Adding Tabs
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name)
+                    .setTabListener(this));
+        }
+
     }
 
 
@@ -67,6 +108,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    /*
     @Override
     public void onClick(View view) {
         Intent i = new Intent(this, MapsActivity.class);
@@ -100,5 +162,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         }
         startActivity(i);
-    }
+    }*/
 }
