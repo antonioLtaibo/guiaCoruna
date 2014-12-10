@@ -11,7 +11,7 @@
     android:background="@android:color/background_light">
 
     <TableRow
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -22,14 +22,15 @@
             android:id="@+id/textView" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_nombre" />
     </TableRow>
 
     <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +42,15 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/et_direccion" />
+            android:id="@+id/et_direccion"
+            android:layout_weight="0.92" />
+
+       <TextView
+           android:layout_height="wrap_content"
+           android:layout_width="wrap_content"
+           android:id="@+id/but_loc"
+           android:drawableLeft="@android:drawable/ic_menu_compass"
+           android:layout_marginRight="0dp"/>
     </TableRow>
 
     <TableRow
@@ -56,9 +65,10 @@
             android:id="@+id/textView3" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_telefono" />
+            android:id="@+id/et_telefono"
+            android:numeric="integer"/>
 
     </TableRow>
 

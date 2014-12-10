@@ -2,8 +2,6 @@ package es.udc.psi14.grupal.guiacoruna;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -11,26 +9,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
+import android.view.View;
 import modelo.SQLModel;
-import modelo.testmodel;
 import util.util;
 
 
@@ -38,7 +22,6 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.LinkedList;
@@ -56,7 +39,7 @@ import modelo.PuntoInteres;
  * create an instance of this fragment.
  *
  */
-public class FragmentMapa extends SupportMapFragment implements GoogleMap.OnInfoWindowClickListener{
+public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -71,9 +54,8 @@ public class FragmentMapa extends SupportMapFragment implements GoogleMap.OnInfo
     private static final LatLng CORUNA_POINT = new LatLng(43.36763,-8.40801);
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LinkedList<PuntoInteres> items;
-    private int drawable;
-    private MapView mapview;
     private OnFragmentInteractionListener mListener;
+    private SupportMapFragment fragment;
 
     /**
      * Use this factory method to create a new instance of
@@ -94,27 +76,21 @@ public class FragmentMapa extends SupportMapFragment implements GoogleMap.OnInfo
     }
     public FragmentMapa() {
         // Required empty public constructor
+
     }
-
-
-
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.location_map)).getMap();
-            //mMap = mapview.getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
-        }
-    }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
-        setUpMapIfNeeded();
+        super.onActivityCreated(savedInstanceState);
+
+        android.support.v4.app.FragmentManager fm = getChildFragmentManager();
+
+        fragment = (SupportMapFragment) fm.findFragmentById(R.id.location_map);
+        if (fragment == null) {
+            fragment = SupportMapFragment.newInstance();
+            fm.beginTransaction().replace(R.id.location_map, fragment).commit();
+        }
+        model = new SQLModel(getActivity().getApplicationContext());
     }
 
     @Override
@@ -122,6 +98,8 @@ public class FragmentMapa extends SupportMapFragment implements GoogleMap.OnInfo
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=  inflater.inflate(R.layout.fragment_fragment_mapa, container, false);
+
+        //setUpMapIfNeeded(view);
         //mapview = (MapView) view.findViewById(R.id.mapView_fragmento);
 
         /*
@@ -134,9 +112,31 @@ public class FragmentMapa extends SupportMapFragment implements GoogleMap.OnInfo
         }*/
 
 
-        //setUpMapIfNeeded();
         return view;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+    }
+
+
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = fragment.getMap();
+
+            //mMap = mapview.getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                setUpMap();
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                mMap.setOnInfoWindowClickListener(this);
+            }
+        }
     }
 
     private void setUpMap() {
@@ -149,7 +149,13 @@ public class FragmentMapa extends SupportMapFragment implements GoogleMap.OnInfo
         String lat;
         String lon;
         int i=0;
+        int drawable;
+        items = ((LinkedList) model.getAll());
+        Log.d("JNDNSKLSMDS",String.valueOf(items.size()));
         for (i=0;i<items.size();i++){
+            Log.d("ID PUNTO INTERES ->>", items.get(i).getCoordenadas());
+            Log.d("ID PUNTO INTERES ->>", String.valueOf(items.get(i).getId()));
+            drawable = util.findIconType(items.get(i).getTipo());
             String[] coord= items.get(i).getCoordenadas().split(",");
             lat = coord[0];
             lon = coord[1];
@@ -158,7 +164,6 @@ public class FragmentMapa extends SupportMapFragment implements GoogleMap.OnInfo
                     .title(items.get(i).getNombre())
                     .icon(BitmapDescriptorFactory.fromResource(drawable))
                     .snippet(items.get(i).getDetalles()));
-            Log.d("ID PUNTO INTERES ->>", String.valueOf(items.get(i).getId()));
         }
     }
 

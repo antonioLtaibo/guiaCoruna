@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +39,7 @@ import util.ImageManagerExternal;
 import util.InvalidPIException;
 
 
-public class AddPuntoInteres extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class AddPuntoInteres extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener,LocationListener {
 
     TextView numItems;
 
@@ -45,6 +49,8 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
     Spinner spinnerTipo;
     String tipo="";
     EditText et_cadena_buscar;
+
+    TextView loc;
 
     Button butt_enviar;
 
@@ -57,6 +63,9 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
     String TAG ="AddPI";
     String imageFullString="";
     String imageThumbnailString="";
+    String coordenadas = "";
+    String direcion = "";
+    private LocationManager locateManager;
 
     static final int REQUEST_TAKE_PHOTO = 1;
 
@@ -80,6 +89,9 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
         butt_photo = (Button) findViewById(R.id.butt_photo);
         butt_photo.setOnClickListener(this);
 
+        loc = (TextView) findViewById(R.id.but_loc);
+        loc.setOnClickListener(this);
+
         imagen = (ImageView) findViewById(R.id.imagen);
 
         spinnerTipo = (Spinner) findViewById(R.id.tipo_spinner);
@@ -88,6 +100,7 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipo.setAdapter(adapter);
         spinnerTipo.setOnItemSelectedListener(this);
+        locateManager = (LocationManager)getSystemService(LOCATION_SERVICE);
     }
 
 
@@ -139,7 +152,8 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
                 imagen.setImageBitmap(imageData);
                 Log.d(TAG, "Saving image to external");
                 ImageManagerExternal ImgManager = new ImageManagerExternal(this);
-                ImgManager.saveToExternalSorage(imageData, imageFullString);
+                Bitmap ThumbImage1 = ThumbnailUtils.extractThumbnail(imageData, 2048, 2048);
+                ImgManager.saveToExternalSorage(ThumbImage1, imageFullString);
 
 
                 Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(imageData, 64, 64);
@@ -160,6 +174,7 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
             pi.setDireccion(et_direccion.getText().toString());
             pi.setTipo(tipo);
             pi.setImageString(imageFullString);
+            pi.setCoordenadas(coordenadas);
             boolean exito = false;
             try {
                 exito = model.addPuntoInteres(pi);
@@ -187,6 +202,19 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
             } else{
                 Toast.makeText(this,"No hay una tarjeta SD",Toast.LENGTH_SHORT).show();
             }
+        }else if (view == loc){
+            //TODO location manager
+            boolean enabled = locateManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            // check if enabled and if not send user to the GPS settings
+            if (!enabled) {
+                locateManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
+            }else {
+                locateManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            }
+
+
+
+
         }
     }
 
@@ -223,5 +251,35 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         tipo = "";
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        coordenadas = String.valueOf(location.getLatitude())+","+ String.valueOf(location.getLongitude());
+        Log.d("COORDENADAS",coordenadas);
+
+
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        locateManager.removeUpdates(this);
     }
 }

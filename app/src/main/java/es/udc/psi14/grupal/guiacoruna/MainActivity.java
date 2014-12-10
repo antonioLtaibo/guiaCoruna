@@ -27,10 +27,6 @@ import util.util;
 public class MainActivity extends FragmentActivity implements
         ActionBar.TabListener, FragmentGrupos.OnFragmentInteractionListener,FragmentMapa.OnFragmentInteractionListener {
 
-
-    private Button butMus,butHot,butNoche,butTend,butRes,butMon;
-
-    public static FragmentManager fragmentManager;
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
@@ -42,26 +38,10 @@ public class MainActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        /*butMus = (Button) findViewById(R.id.but_mus);
-        butHot = (Button) findViewById(R.id.but_hot);
-        butNoche = (Button) findViewById(R.id.but_noche);
-        butTend = (Button) findViewById(R.id.but_tend);
-        butRes = (Button) findViewById(R.id.but_res);
-        butMon = (Button) findViewById(R.id.but_mon);
-
-        butMus.setOnClickListener(this);
-        butRes.setOnClickListener(this);
-        butNoche.setOnClickListener(this);
-        butTend.setOnClickListener(this);
-        butMon.setOnClickListener(this);
-        butHot.setOnClickListener(this);*/
 
         SQLModel model;
         model = new SQLModel(this);
         model.loadInitData();
-
-        fragmentManager = getSupportFragmentManager();
-
 
         /****/
         // Initilization
@@ -131,9 +111,9 @@ public class MainActivity extends FragmentActivity implements
     /*
     @Override
     public void onClick(View view) {
-        Intent i = new Intent(this, MapsActivity.class);
+        //Intent i = new Intent(this, MapsActivity.class);
         //descomentar la linea que nos interesa en cada caso hasta que se implemente el tab view
-        //Intent i = new Intent(this, PuntoInteresListActiv.class);
+        Intent i = new Intent(this, PuntoInteresListActiv.class);
         switch (view.getId()){
             case R.id.but_mus:
                 i.putExtra(util.TAG_TYPE, util.TYPE_MUSEUM);

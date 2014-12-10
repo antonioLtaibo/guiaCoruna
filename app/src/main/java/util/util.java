@@ -26,4 +26,20 @@ public class util {
     public static final int ICON_TYPE_HOTEL = R.drawable.hotel;
     public static final int ICON_TYPE_SHOP = R.drawable.tend;
 
+    public static int findIconType(String type){
+        if (type.equals("RESTAURANT"))
+            return R.drawable.restaurant;
+        if (type.equals("MUSEUM"))
+            return R.drawable.museum;
+        if (type.equals("MONUMENT"))
+            return R.drawable.monument;
+        if (type.equals("NIGHT"))
+            return R.drawable.bar;
+        if (type.equals("HOTEL"))
+            return R.drawable.hotel;
+        if (type.equals("SHOP"))
+            return R.drawable.tend;
+        return 0;
+    }
+
 }
