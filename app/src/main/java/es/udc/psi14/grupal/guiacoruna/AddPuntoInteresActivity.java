@@ -196,6 +196,7 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
 
                 }
             } else{
+
                 Toast.makeText(this,"No hay una tarjeta SD",Toast.LENGTH_SHORT).show();
             }
         }else if (view == loc){
