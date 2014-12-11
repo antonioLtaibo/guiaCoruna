@@ -6,12 +6,8 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:visible="false"/>
-    <item android:id="@+id/action_test_model"
-        android:title="Test Model"
-        android:orderInCategory="100"
-        android:showAsAction="never"/>
     <item android:id="@+id/action_add_punto"
-        android:title="Add Punto Interes"
+        android:title="Añadir Punto de Interes"
         android:showAsAction="never"/>
 
 </menu>

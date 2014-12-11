@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="es.udc.psi14.grupal.guiacoruna.AddPuntoInteres"
+    tools:context="es.udc.psi14.grupal.guiacoruna.AddPuntoInteresActivity"
     android:orientation="vertical"
     android:background="@android:color/background_light">
 

@@ -39,7 +39,7 @@ import modelo.PuntoInteres;
  * create an instance of this fragment.
  *
  */
-public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClickListener{
+public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -96,22 +96,7 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view=  inflater.inflate(R.layout.fragment_fragment_mapa, container, false);
-
-        //setUpMapIfNeeded(view);
-        //mapview = (MapView) view.findViewById(R.id.mapView_fragmento);
-
-        /*
-        if (getIntent().getExtras()!=null) {
-            Bundle extra = getIntent().getExtras(); // check if not null
-            String type = extra.getString(util.TAG_TYPE, "");
-            drawable = extra.getInt(util.TAG_ICON,0);
-            model = new SQLModel(this);
-            items = ((LinkedList) model.findByType(type));
-        }*/
-
-
         return view;
 
     }
@@ -128,9 +113,6 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMap = fragment.getMap();
-
-            //mMap = mapview.getMap();
-            // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
                 mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -140,30 +122,35 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
     }
 
     private void setUpMap() {
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));+
+        String lat;
+        String lon;
+        int i=0;
+        int drawable;
+        String[] coord;
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(CORUNA_POINT)
                 .zoom(13)
                 .build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        String lat;
-        String lon;
-        int i=0;
-        int drawable;
+        mMap.setOnMapClickListener(this);
         items = ((LinkedList) model.getAll());
-        Log.d("JNDNSKLSMDS",String.valueOf(items.size()));
+        Log.d("Number of items to draw in map: ",String.valueOf(items.size()));
         for (i=0;i<items.size();i++){
             Log.d("ID PUNTO INTERES ->>", items.get(i).getCoordenadas());
             Log.d("ID PUNTO INTERES ->>", String.valueOf(items.get(i).getId()));
             drawable = util.findIconType(items.get(i).getTipo());
-            String[] coord= items.get(i).getCoordenadas().split(",");
-            lat = coord[0];
-            lon = coord[1];
-            Marker coruna = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(Double.valueOf(lat),Double.valueOf(lon)))
-                    .title(items.get(i).getNombre())
-                    .icon(BitmapDescriptorFactory.fromResource(drawable))
-                    .snippet(items.get(i).getDetalles()));
+            if(items.get(i).getCoordenadas().compareTo("")==0){
+
+            }else{
+                coord= items.get(i).getCoordenadas().split(",");
+                lat = coord[0];
+                lon = coord[1];
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(Double.valueOf(lat), Double.valueOf(lon)))
+                        .title(items.get(i).getNombre())
+                        .icon(BitmapDescriptorFactory.fromResource(drawable))
+                        .snippet(items.get(i).getDetalles()));
+            }
         }
     }
 
@@ -198,6 +185,11 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
         Intent intent = new Intent(getActivity().getBaseContext(), DetallesActivity.class);
         intent.putExtra(util.TAG_ID,pi.getId());
         startActivity(intent);
+
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
 
     }
 

@@ -39,9 +39,8 @@ import util.ImageManagerExternal;
 import util.InvalidPIException;
 
 
-public class AddPuntoInteres extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener,LocationListener {
+public class AddPuntoInteresActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener,LocationListener {
 
-    TextView numItems;
 
     EditText et_nombre;
     EditText et_direccion;
@@ -76,12 +75,10 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
 
         model = new SQLModel(this);
 
-        numItems = (TextView) findViewById(R.id.numItems);
 
         et_nombre = (EditText) findViewById(R.id.et_nombre);
         et_direccion = (EditText) findViewById(R.id.et_direccion);
         et_telefono = (EditText) findViewById(R.id.et_telefono);
-        et_cadena_buscar = (EditText) findViewById(R.id.et_cadena_buscar);
 
         butt_enviar = (Button) findViewById(R.id.butt_enviar);
         butt_enviar.setOnClickListener(this);
@@ -152,13 +149,12 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
                 imagen.setImageBitmap(imageData);
                 Log.d(TAG, "Saving image to external");
                 ImageManagerExternal ImgManager = new ImageManagerExternal(this);
-                Bitmap ThumbImage1 = ThumbnailUtils.extractThumbnail(imageData, 2048, 2048);
+                Bitmap ThumbImage1 = ThumbnailUtils.extractThumbnail(imageData, 1024, 1024);
                 ImgManager.saveToExternalSorage(ThumbImage1, imageFullString);
 
 
                 Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(imageData, 64, 64);
                 ImgManager.saveToExternalSorage(ThumbImage,imageThumbnailString);
-
             }
         }
     }
