@@ -2,6 +2,8 @@ package modelo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -39,13 +41,21 @@ public class SQLModel implements ModelInterface {
     String TAG = "SQLModel";
 
     public SQLModel(Context context){
-
         this.context=context;
     }
 
-    String filenameLock = "defaultDataLoaded.lock";
+    String filenameLock;
 
-
+    private void setFilenameLock(){
+        PackageInfo pInfo = null;
+        try {
+            pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String version = pInfo.versionName;
+        filenameLock = version+".lock";
+    }
 
     public boolean DefaultDataExists(){
         FileInputStream inputStream;
@@ -61,7 +71,7 @@ public class SQLModel implements ModelInterface {
         }
     }
 
-    public void createLockDefaultData(){
+    public void createLockData(){
         FileOutputStream outputStream;
         try {
             outputStream = context.openFileOutput(filenameLock, Context.MODE_PRIVATE);
@@ -70,7 +80,6 @@ public class SQLModel implements ModelInterface {
             e.printStackTrace();
         }
     }
-
 
 
     public void validatePI(PuntoInteres pi) throws InvalidPIException {
@@ -86,14 +95,13 @@ public class SQLModel implements ModelInterface {
     }
 
 
-
     @Override
     public boolean removePuntoInteres(String id) {
-        boolean status=false;
+        boolean status;
         SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
         if(this.findByID(id)==null){
-            return false;
+            status = false;
         }else{
             status = db.delete(PuntoInteres.TABLE_NAME, PuntoInteres.COL_ID + "=" + id, null) > 0;
         }
@@ -104,9 +112,10 @@ public class SQLModel implements ModelInterface {
 
     @Override
     public boolean addPuntoInteres(PuntoInteres pi) throws InvalidPIException {
+        this.validatePI(pi);
+
         SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        this.validatePI(pi);
 
         try {
             // Create a new map of values, where column names are the keys
@@ -120,9 +129,7 @@ public class SQLModel implements ModelInterface {
             values.put(PuntoInteres.COLUMN_NAME_DETALLES,pi.getDetalles());
             values.put(PuntoInteres.COLUMN_NAME_URL,pi.getUrl());
 
-            // Insert the new row, returning the primary key value of the new row
-            long newRowId;
-            newRowId = db.insert(
+            db.insert(
                     PuntoInteres.TABLE_NAME,
                     null,
                     values);
@@ -131,20 +138,17 @@ public class SQLModel implements ModelInterface {
         }catch (Exception ex){
             ex.printStackTrace();
             return false;
+        }finally {
+            db.close();
         }
     }
-
-
 
 
     private Cursor findByField(String selection, String[] selectionArgs) {
         SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor returnCursor;
         try {
-            db = helper.getReadableDatabase();
-
-            // Define a projection that specifies which columns from the database
-            // you will actually use after this query.
             String[] projection = {
                     PuntoInteres.COL_ID,
                     PuntoInteres.COLUMN_NAME_DIRECCION,
@@ -157,13 +161,6 @@ public class SQLModel implements ModelInterface {
                     PuntoInteres.COLUMN_NAME_URL
 
             };
-
-            //String selection = PuntoInteresContract.PuntoInteres.COLUMN_NAME_NOMBRE;
-
-            /*String[] selectionArgs = {
-                    value
-            };*/
-
             String sortOrder = PuntoInteres.COLUMN_NAME_NOMBRE + " DESC";
 
             if(selection!=null) selection = selection + "=?";
@@ -177,53 +174,38 @@ public class SQLModel implements ModelInterface {
                     null,                                     // don't filter by row groups
                     sortOrder                                 // The sort order
             );
-            return cursor;
+            returnCursor = cursor;
 
         }catch (Exception ex){
             ex.printStackTrace();
-            return null;
+            returnCursor = null;
         }
+        return returnCursor;
     }
 
 
     private PuntoInteres parseSingleResult(Cursor cursor){
-        SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
-        SQLiteDatabase db = helper.getReadableDatabase();
         try{
             boolean hasData = cursor.moveToFirst();
             if(hasData) {
-
                 Integer id = cursor.getInt(
-                        cursor.getColumnIndex(PuntoInteres.COL_ID)
-                );
-
+                        cursor.getColumnIndex(PuntoInteres.COL_ID));
                 String telefono = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO));
                 String tipo = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TIPO)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TIPO));
                 String direccion = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DIRECCION)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DIRECCION));
                 String nombre = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE));
                 String imagen = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IMAGEN)
-                );
-
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IMAGEN));
                 String coordenadas = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_COORDENADAS)
-                );
-
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_COORDENADAS));
                 String detalles = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DETALLES)
-                );
-
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DETALLES));
                 String url = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_URL)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_URL));
 
                 PuntoInteres pi = new PuntoInteres();
                 pi.setId(id);
@@ -235,7 +217,6 @@ public class SQLModel implements ModelInterface {
                 pi.setCoordenadas(coordenadas);
                 pi.setDetalles(detalles);
                 pi.setUrl(url);
-
                 return pi;
             }else{
                 return null;
@@ -254,36 +235,23 @@ public class SQLModel implements ModelInterface {
             while(moreRows){
 
                 Integer id = cursor.getInt(
-                        cursor.getColumnIndex(PuntoInteres.COL_ID)
-                );
-
+                        cursor.getColumnIndex(PuntoInteres.COL_ID));
                 String telefono = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TELEFONO));
                 String tipo = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TIPO)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_TIPO));
                 String direccion = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DIRECCION)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DIRECCION));
                 String nombre = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_NOMBRE));
                 String imagen = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IMAGEN)
-                );
-
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IMAGEN));
                 String coordenadas = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_COORDENADAS)
-                );
-
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_COORDENADAS));
                 String detalles = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DETALLES)
-                );
-
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DETALLES));
                 String url = cursor.getString(
-                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_URL)
-                );
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_URL));
 
                 PuntoInteres pi = new PuntoInteres();
                 pi.setId(id);
@@ -314,7 +282,9 @@ public class SQLModel implements ModelInterface {
         };
         Cursor cursor =
                 this.findByField(PuntoInteres.COLUMN_NAME_NOMBRE,selectionArgs);
-        return this.parseSingleResult(cursor);
+        PuntoInteres pi = this.parseSingleResult(cursor);
+        cursor.close();
+        return pi;
     }
 
     @Override
@@ -324,7 +294,9 @@ public class SQLModel implements ModelInterface {
         };
         Cursor cursor =
                 this.findByField(PuntoInteres.COL_ID,selectionArgs);
-        return this.parseSingleResult(cursor);
+        PuntoInteres pi = this.parseSingleResult(cursor);
+        cursor.close();
+        return pi;
     }
 
 
@@ -335,26 +307,67 @@ public class SQLModel implements ModelInterface {
         };
         Cursor cursor =
                 this.findByField(PuntoInteres.COLUMN_NAME_TIPO,selectionArgs);
-        return this.parseMultipleResults(cursor);
+        List<PuntoInteres> puntos = this.parseMultipleResults(cursor);
+        cursor.close();
+        return puntos;
     }
 
     @Override
     public List<PuntoInteres> getAll() {
-        String[] selectionArgs = null;
         Cursor cursor =
                 this.findByField(null,null);
-        return this.parseMultipleResults(cursor);
+        List<PuntoInteres> puntos = this.parseMultipleResults(cursor);
+        cursor.close();
+        return puntos;
+    }
+
+    @Override
+    public boolean updatePuntoInteres(PuntoInteres pi) throws InvalidPIException {
+        SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        boolean status = false;
+        this.validatePI(pi);
+
+        try {
+            // Create a new map of values, where column names are the keys
+            ContentValues values = new ContentValues();
+            values.put(PuntoInteres.COLUMN_NAME_DIRECCION, pi.getDireccion());
+            values.put(PuntoInteres.COLUMN_NAME_NOMBRE, pi.getNombre());
+            values.put(PuntoInteres.COLUMN_NAME_TIPO, pi.getTipo());
+            values.put(PuntoInteres.COLUMN_NAME_TELEFONO, pi.getTelefono());
+            values.put(PuntoInteres.COLUMN_NAME_IMAGEN,pi.getImageString());
+            values.put(PuntoInteres.COLUMN_NAME_COORDENADAS,pi.getCoordenadas());
+            values.put(PuntoInteres.COLUMN_NAME_DETALLES,pi.getDetalles());
+            values.put(PuntoInteres.COLUMN_NAME_URL,pi.getUrl());
+
+            String strFilter = "_id=" + pi.getId();
+
+            db.update(
+                    PuntoInteres.TABLE_NAME,
+                    values,
+                    strFilter,
+                    null
+            );
+
+            status = true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            status = false;
+        }finally {
+            db.close();
+        }
+        return status;
     }
 
 
     public void loadInitData(){
-
+        setFilenameLock();
+        Log.d(TAG, "Using lock file: "+filenameLock);
         if(this.DefaultDataExists()){
-           Log.d(TAG, "Default Data Already Loaded");
-            return;
+           Log.d(TAG, "Data Already Loaded");
+           return;
         }
-
-        this.createLockDefaultData();
+        createLockData();
 
         InputStream is = context.getResources().openRawResource(R.raw.first_data);
         final char[] buffer = new char[512];
@@ -379,33 +392,53 @@ public class SQLModel implements ModelInterface {
         }
         String fileString = out.toString();
 
-        Log.d(TAG, "Saving image to gallery");
         ImageManagerInternal ImgManager = new ImageManagerInternal(context);
         ImageManagerAssets assets = new ImageManagerAssets(context);
         Bitmap image;
         String imageString;
 
-        JSONObject obj = null;
+        JSONObject obj;
+        PuntoInteres pi;
         try {
             obj = new JSONObject(fileString);
             JSONArray arr = obj.getJSONArray("data");
             for (int i = 0; i < arr.length(); i++)
             {
-                PuntoInteres pi = new PuntoInteres();
+                String nombre = arr.getJSONObject(i).getString("nombre");
+                pi = this.findByName(nombre);
+                if (pi != null){
+                    //ACTUALIZAR
+                    pi.setNombre(nombre);
+                    pi.setDireccion(arr.getJSONObject(i).getString("direccion"));
+                    pi.setTelefono(arr.getJSONObject(i).getString("telefono"));
+                    pi.setTipo(arr.getJSONObject(i).getString("tipo"));
+                    pi.setImageString(arr.getJSONObject(i).getString("imagen"));
+                    pi.setCoordenadas(arr.getJSONObject(i).getString("coordenadas"));
+                    pi.setDetalles(arr.getJSONObject(i).getString("detalles"));
+                    pi.setUrl(arr.getJSONObject(i).getString("url"));
+                    try {
+                        this.updatePuntoInteres(pi);
+                    } catch (InvalidPIException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    //CREAR
+                    pi = new PuntoInteres();
+                    pi.setNombre(nombre);
+                    pi.setDireccion(arr.getJSONObject(i).getString("direccion"));
+                    pi.setTelefono(arr.getJSONObject(i).getString("telefono"));
+                    pi.setTipo(arr.getJSONObject(i).getString("tipo"));
+                    pi.setImageString(arr.getJSONObject(i).getString("imagen"));
+                    pi.setCoordenadas(arr.getJSONObject(i).getString("coordenadas"));
+                    pi.setDetalles(arr.getJSONObject(i).getString("detalles"));
+                    pi.setUrl(arr.getJSONObject(i).getString("url"));
 
-                pi.setNombre(arr.getJSONObject(i).getString("nombre"));
-                pi.setDireccion(arr.getJSONObject(i).getString("direccion"));
-                pi.setTelefono(arr.getJSONObject(i).getString("telefono"));
-                pi.setTipo(arr.getJSONObject(i).getString("tipo"));
-                pi.setImageString(arr.getJSONObject(i).getString("imagen"));
-                pi.setCoordenadas(arr.getJSONObject(i).getString("coordenadas"));
-                pi.setDetalles(arr.getJSONObject(i).getString("detalles"));
-                pi.setUrl(arr.getJSONObject(i).getString("url"));
-
-                try {
-                    this.addPuntoInteres(pi);
-                } catch (InvalidPIException e) {
-                    e.printStackTrace();
+                    try {
+                        this.addPuntoInteres(pi);
+                    } catch (InvalidPIException e) {
+                        e.printStackTrace();
+                        continue;
+                    }
                 }
 
                 imageString = pi.getImageString();

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +25,11 @@ import util.util;
 public class PuntoInteresListActiv extends Activity {
 
     private ListView listView;
+    PuntoInteresAdapter adapter;
     SQLModel model;
     PuntoInteres[] puntoInteresData;
     int drawable;
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class PuntoInteresListActiv extends Activity {
 
         if (getIntent().getExtras()!=null) {
             Bundle extra = getIntent().getExtras(); // check if not null
-            String type = extra.getString(util.TAG_TYPE, "");
+            type = extra.getString(util.TAG_TYPE, "");
             drawable = extra.getInt(util.TAG_ICON,0);
             ActionBar actionBar = getActionBar();
             actionBar.setIcon(drawable);
@@ -52,9 +55,8 @@ public class PuntoInteresListActiv extends Activity {
             }
         }
 
-        PuntoInteresAdapter adapter = new PuntoInteresAdapter(this,
+        adapter = new PuntoInteresAdapter(this,
                 R.layout.adapterlayout, puntoInteresData);
-
 
         listView = (ListView) findViewById(R.id.list_view);
 
@@ -97,14 +99,54 @@ public class PuntoInteresListActiv extends Activity {
 
         if(menuItemName.compareTo("EDIT")==0){
             Toast.makeText(this, "EDIT on "+itemName , Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, AddPuntoInteres.class);
+            Bundle extras = new Bundle();
+            extras.putString(AddPuntoInteres.campoNombre, pi.getNombre());
+            extras.putString(AddPuntoInteres.campoTelefono, pi.getTelefono());
+            extras.putString(AddPuntoInteres.campoDireccion, pi.getDireccion());
+            extras.putString(AddPuntoInteres.campoCoordenadas, pi.getCoordenadas());
+            extras.putString(AddPuntoInteres.campoTipo, pi.getTipo());
+            extras.putString(AddPuntoInteres.campoImagenNombre, pi.getImageString());
+
+            extras.putString(AddPuntoInteres.activityMode, AddPuntoInteres.activityModeEdit);
+            extras.putInt(AddPuntoInteres.idString, pi.getId());
+
+            intent.putExtras(extras);
+
+            startActivity(intent);
+
+            refreshData();
+
         }else if(menuItemName.compareTo("REMOVE")==0){
             Toast.makeText(this, "REMOVE on "+itemName, Toast.LENGTH_SHORT).show();
             model.removePuntoInteres(pi.getId().toString());
-        }
 
+            refreshData();
+        }
         return true;
     }
 
+
+    private void refreshData(){
+        LinkedList<PuntoInteres> items = ((LinkedList) model.findByType(type));
+        int size = items.size();
+        puntoInteresData = new PuntoInteres[size];
+        int index = 0;
+        for (PuntoInteres pi : items) {
+            puntoInteresData[index] = pi;
+            index++;
+        }
+        adapter = new PuntoInteresAdapter(this,
+                R.layout.adapterlayout, puntoInteresData);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

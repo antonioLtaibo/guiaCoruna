@@ -26,4 +26,6 @@ public interface ModelInterface {
 
     public List<PuntoInteres> getAll();
 
+    public boolean updatePuntoInteres(PuntoInteres pi) throws InvalidPIException;
+
 }

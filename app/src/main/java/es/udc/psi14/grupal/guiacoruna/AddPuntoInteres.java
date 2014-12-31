@@ -41,19 +41,33 @@ import util.InvalidPIException;
 
 public class AddPuntoInteres extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener,LocationListener {
 
-    TextView numItems;
+
+    static final String activityModeCreate = "CREATE";
+    static final String activityModeEdit  = "EDIT";
+    String mode = activityModeCreate;
+    static final String activityMode = "ACTIVITY_MODE";
+
+    Integer updating_pi_ID;
+    static final String idString ="ID";
 
     EditText et_nombre;
+    static final String campoNombre = "NOMBRE";
+
     EditText et_direccion;
+    static final String campoDireccion = "DIRECCION";
+
     EditText et_telefono;
+    static final String campoTelefono= "TELEFONO";
+
     Spinner spinnerTipo;
     String tipo="";
-    EditText et_cadena_buscar;
+    static final String campoTipo = "TIPO";
 
+    String coordenadas = "";
+    static final String campoCoordenadas = "COORDENADAS";
     TextView loc;
 
     Button butt_enviar;
-
     Button butt_photo;
 
     ImageView imagen;
@@ -62,9 +76,9 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
 
     String TAG ="AddPI";
     String imageFullString="";
+    static final String campoImagenNombre = "IMAGE";
     String imageThumbnailString="";
-    String coordenadas = "";
-    String direcion = "";
+
     private LocationManager locateManager;
 
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -76,12 +90,9 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
 
         model = new SQLModel(this);
 
-        numItems = (TextView) findViewById(R.id.numItems);
-
         et_nombre = (EditText) findViewById(R.id.et_nombre);
         et_direccion = (EditText) findViewById(R.id.et_direccion);
         et_telefono = (EditText) findViewById(R.id.et_telefono);
-        et_cadena_buscar = (EditText) findViewById(R.id.et_cadena_buscar);
 
         butt_enviar = (Button) findViewById(R.id.butt_enviar);
         butt_enviar.setOnClickListener(this);
@@ -101,6 +112,26 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
         spinnerTipo.setAdapter(adapter);
         spinnerTipo.setOnItemSelectedListener(this);
         locateManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+
+
+        if(getIntent().getExtras() != null){
+            et_nombre.setText(getIntent().getExtras().getString(campoNombre));
+            et_direccion.setText(getIntent().getExtras().getString(campoDireccion));
+            et_telefono.setText(getIntent().getExtras().getString(campoTelefono));
+            coordenadas = getIntent().getExtras().getString(campoCoordenadas);
+            tipo = getIntent().getExtras().getString(campoTipo);
+            imageFullString = getIntent().getExtras().getString(campoImagenNombre);
+
+            mode = getIntent().getExtras().getString(activityMode);
+            updating_pi_ID = getIntent().getExtras().getInt(idString);
+
+            int spinnerPostion = adapter.getPosition(tipo);
+            spinnerTipo.setSelection(spinnerPostion);
+            spinnerPostion = 0;
+
+            butt_enviar.setText(mode);
+        }
+
     }
 
 
@@ -163,8 +194,6 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
         }
     }
 
-
-
     @Override
     public void onClick(View view) {
         if(view == butt_enviar){
@@ -177,18 +206,35 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
             pi.setCoordenadas(coordenadas);
             boolean exito = false;
             try {
-                exito = model.addPuntoInteres(pi);
+                if(mode.compareTo(activityModeCreate)==0){
+                    exito = model.addPuntoInteres(pi);
+                    if(exito){
+                        et_telefono.setText("");
+                        et_nombre.setText("");
+                        et_direccion.setText("");
+                        imagen.setImageResource(0);
+                        Toast.makeText(this, "Item insertado con éxito", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(this,"Inserción Falló",Toast.LENGTH_SHORT).show();
+                    }
+                }else if (mode.compareTo(activityModeEdit)==0){
+                    pi.setId(updating_pi_ID);
+                    exito = model.updatePuntoInteres(pi);
+                    if(exito){
+                        et_telefono.setText("");
+                        et_nombre.setText("");
+                        et_direccion.setText("");
+                        imagen.setImageResource(0);
+                        Toast.makeText(this, "Item actualizado con éxito", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(this,"Actualización Falló",Toast.LENGTH_SHORT).show();
+                    }
+                    finish();
+                }else{
+                    finish();
+                }
             } catch (InvalidPIException e) {
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-            if(exito){
-                et_telefono.setText("");
-                et_nombre.setText("");
-                et_direccion.setText("");
-                imagen.setImageResource(0);
-                Toast.makeText(this, "Item insertado con éxito", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this,"Inserción Falló",Toast.LENGTH_SHORT).show();
             }
         }else if(view == butt_photo) {
             String state = Environment.getExternalStorageState();
@@ -211,10 +257,6 @@ public class AddPuntoInteres extends Activity implements View.OnClickListener, A
             }else {
                 locateManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             }
-
-
-
-
         }
     }
 

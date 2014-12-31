@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -31,8 +32,6 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
     int id;
     PuntoInteres puntoInteres;
     String TAG = "DetallesActivity";
-
-    View v1,v2,v3,v4;
 
     TextView tvName,tvDir,tvPhone,tvDetail, tvWeb;
     @Override
@@ -84,8 +83,6 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
             }
             ImageView imagenView = (ImageView) findViewById(R.id.imagen);
 
-
-
             ImageManagerInternal ImgManagerInt = new ImageManagerInternal(this);
             ImageManagerExternal ImgManagerExt= new ImageManagerExternal(this);
 
@@ -127,7 +124,22 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.editar) {
+            Intent intent = new Intent(this, AddPuntoInteres.class);
+            Bundle extras = new Bundle();
+            extras.putString(AddPuntoInteres.campoNombre, puntoInteres.getNombre());
+            extras.putString(AddPuntoInteres.campoTelefono, puntoInteres.getTelefono());
+            extras.putString(AddPuntoInteres.campoDireccion, puntoInteres.getDireccion());
+            extras.putString(AddPuntoInteres.campoCoordenadas, puntoInteres.getCoordenadas());
+            extras.putString(AddPuntoInteres.campoTipo, puntoInteres.getTipo());
+            extras.putString(AddPuntoInteres.campoImagenNombre, puntoInteres.getImageString());
+
+            extras.putString(AddPuntoInteres.activityMode, AddPuntoInteres.activityModeEdit);
+            extras.putInt(AddPuntoInteres.idString, puntoInteres.getId());
+
+            intent.putExtras(extras);
+
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
