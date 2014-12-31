@@ -39,7 +39,7 @@ import util.ImageManagerExternal;
 import util.InvalidPIException;
 
 
-public class AddPuntoInteres extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener,LocationListener {
+public class AddPuntoInteresActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener,LocationListener {
 
 
     static final String activityModeCreate = "CREATE";
