@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -31,8 +32,6 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
     int id;
     PuntoInteres puntoInteres;
     String TAG = "DetallesActivity";
-
-    View v1,v2,v3,v4;
 
     TextView tvName,tvDir,tvPhone,tvDetail, tvWeb;
     @Override
@@ -84,8 +83,6 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
             }
             ImageView imagenView = (ImageView) findViewById(R.id.imagen);
 
-
-
             ImageManagerInternal ImgManagerInt = new ImageManagerInternal(this);
             ImageManagerExternal ImgManagerExt= new ImageManagerExternal(this);
 
@@ -127,7 +124,22 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.editar) {
+            Intent intent = new Intent(this, AddPuntoInteresActivity.class);
+            Bundle extras = new Bundle();
+            extras.putString(AddPuntoInteresActivity.campoNombre, puntoInteres.getNombre());
+            extras.putString(AddPuntoInteresActivity.campoTelefono, puntoInteres.getTelefono());
+            extras.putString(AddPuntoInteresActivity.campoDireccion, puntoInteres.getDireccion());
+            extras.putString(AddPuntoInteresActivity.campoCoordenadas, puntoInteres.getCoordenadas());
+            extras.putString(AddPuntoInteresActivity.campoTipo, puntoInteres.getTipo());
+            extras.putString(AddPuntoInteresActivity.campoImagenNombre, puntoInteres.getImageString());
+
+            extras.putString(AddPuntoInteresActivity.activityMode, AddPuntoInteresActivity.activityModeEdit);
+            extras.putInt(AddPuntoInteresActivity.idString, puntoInteres.getId());
+
+            intent.putExtras(extras);
+
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,213 +1,263 @@
 {
-  "data": [
-    {
-      "nombre": "Pza Maria Pita",
-      "direccion": "Plaza de Maria Pita",
-      "telefono": "",
-      "tipo": "MONUMENT",
-      "imagen": "plaza_maria_pita.png",
-      "coordenadas":"43.3709108 ,-8.396500199999991",
-      "detalles":"Plaza donde se encuentra el edificio del ayuntamiento de la Coruña ,en el centro de esta plaza se encuentra una estatua en honor a Maria Pita",
-      "url":""
-    },
-    {
-       "nombre": "Torre De Hercules",
-       "direccion": "Av Navarra, s/n",
-       "telefono": "981 22 37 30",
-       "tipo": "MONUMENT",
-       "imagen": "torre_hercules.png",
-       "coordenadas": "43.3859571, -8.40649529999996",
-       "detalles": "La Torre de Hercules es una torre y faro situado .Tiene el privilegio de ser el unico faro romano y el más antiguo en funcionamiento del mundo",
-       "url": "http://www.torredeherculesacoruna.com/"
-    },
-    {
-       "nombre": "Castillo de San Antón",
-       "direccion": "Paseo Alcalde Francisco Vázquez 2",
-       "telefono": "981 18 98 50",
-       "tipo": "MONUMENT",
-       "imagen": "Castillo_San_Anton.png",
-       "coordenadas": "43.3657,-8.3877",
-       "detalles": "El Castillo de San Antón es un castillo del siglo XVI que formó parte de una red estratégica de castillos y baterías para defender la ciudad de La Coruña.",
-       "url": "http://www.coruna.es/servlet/Satellite?pagename=cultura/Page/Generico-Page-Generica&cid=1322783576553&itemID=1149055937727&itemType=Entidad"
-    },
-    {
-       "nombre": "Parroquia de Santiago",
-       "direccion": "Calle de Parrote, 1",
-       "telefono": "981 20 56 96",
-       "tipo": "MONUMENT",
-       "imagen": "Parroquia_De_Santiago.png",
-       "coordenadas": "43.369267,-8.3939",
-       "detalles": "La Iglesia de Santiago es un templo de estilo románico cristiano situado en el casco antiguo de la ciudad.Fue construida en la segunda mitad del siglo XII, aunque sufrió posteriores reformas.",
-       "url": ""
-    },
-    {
-       "nombre": "Colegiata de Santa María del Campo",
-       "direccion": "Plaza Santa María 1",
-       "telefono": "981 92 30 93",
-       "tipo": "MONUMENT",
-       "imagen": "Colegiata_de_Santa_Maria.png",
-       "coordenadas": "43.3707749,-8.3931002",
-       "detalles": "La Iglesia de Santiago es un templo de estilo románico cristiano situado en el casco antiguo de la ciudad.Fue construida en la segunda mitad del siglo XII, aunque sufrió posteriores reformas.",
-       "url": ""
-    },
-    {
-       "nombre": "Jamonería La Leonesa",
-       "direccion": "Calle Santo Domingo, 2",
-       "telefono": "981 21 29 44",
-       "tipo": "RESTAURANT",
-       "imagen": "Jamoneria_La_Leonesa.png",
-       "coordenadas": "43.369847,-8.392257",
-       "detalles": "Especialidad en productos ibericos de bellota y embutidos artesanos de León.",
-       "url": ""
-    },
-    {
-       "nombre": "Meson Os Trasnos",
-       "direccion": "Rua de San Mateo 10, Bajo",
-       "telefono": "981 91 58 67",
-       "tipo": "RESTAURANT",
-       "imagen": "Meson_Os_Trasnos.png",
-       "coordenadas": "43.369847,-8.392257",
-       "detalles": "Principalmente Cervecería, tambien ofrecemos cocina española y local, raciones abundantes y servicio de tapas.",
-       "url": ""
-    },
-     {
-       "nombre": "Arbore Da Veira",
-       "direccion": "C/ San Andres, 109 bajo",
-       "telefono": "981 07 89 14",
-       "tipo": "RESTAURANT",
-       "imagen": "Arbore_Da_Veira.png",
-       "coordenadas": "43.3689366,-8.4042999",
-       "detalles": "Cocina de Autor. Acogedor restaurante con mobiliario de madera cruda de roble y cocina de autor del reconocido chef Luis Veira.",
-       "url": ""
-     },
-     {
-       "nombre": "McDonalds",
-       "direccion": "Ronda de Outeiro, 419",
-       "telefono": "981 10 11 78",
-       "tipo": "RESTAURANT",
-       "imagen": "McDonalds.png",
-       "coordenadas": "43.3707299,-8.422986",
-       "detalles": "Hamburguesas y comida rápida",
-       "url": ""
-     },
-       {
-         "nombre": "Sweet Place",
-         "direccion": "Calle Riego de Agua, 2,",
-         "telefono": "881 94 19 26",
-         "tipo": "RESTAURANT",
-         "imagen": "Sweet_Place.png",
-         "coordenadas": "43.3706741,-8.3968123",
-         "detalles": "Hamburguesas y comida rápida",
-         "url": ""
-       },
-      {
-        "nombre": "Corte Ingles",
-        "direccion": "Ramón y Cajal, 57 y 59",
-        "telefono": "981 18 94 00",
-        "tipo": "SHOP",
-        "imagen": "Corte_Ingles.png",
-        "coordenadas": "43.3546952,-8.4035504",
-        "detalles": "Hipermercado",
-        "url": "http://www.elcorteingles.es/centroscomerciales/centroscomerciales/cargarAplicacionCentro.do?identificador=63&idComunidad=9"
-      },
-     {
-       "nombre": "Zara",
-       "direccion": "Calle de Juan Flórez, 64 - 66",
-       "telefono": "981 25 38 47",
-       "tipo": "SHOP",
-       "imagen": "Zara.png",
-       "coordenadas": "43.363555,-8.408216",
-       "detalles": "Primera tienda de Zara abierta por Amancio Ortega en La Coruña.",
-       "url": "http://www.zara.com/"
-     },
-     {
-        "nombre": "Aquarium Finisterrae",
-        "direccion": "Paseo Marítimo Alcalde Francisco Vázquez, 34, 15002 A Coruña, C",
-        "telefono": "981 18 98 42",
-        "tipo": "MUSEUM",
-        "imagen": "aquarium.png",
-        "coordenadas": "43.3840058, -8.409738000000061",
-        "detalles": "Pretende promover el conocimiento del océano y educar actitudes positivas de cariño hacia el medio marino, así como contribuir al conocimiento científico de la vida marina",
-        "url": "http://mc2coruna.org/aquarium/"
-     },
-     {
-      "nombre": "Casa del Hombre",
-      "direccion": "C/ Angel Rebollo, 91, 15002 A Coruña, C",
-      "telefono": "981 18 98 40",
-      "tipo": "MUSEUM",
-      "imagen": "domus.png",
-      "coordenadas": "43.3776377, -8.406531099999938",
-      "detalles": "Museo cultural de carácter científico ubicado. Es el primer museo interactivo que trata de una forma global y monográfica el ser humano",
-      "url": "http://mc2coruna.org/domus/"
-     },
-     {
-       "nombre": "Museo Arqueológico e Histórico Castillo de San Antón ",
-       "direccion": "Paseo Alcalde Francisco Vazquez, 2, A",
-       "telefono": "981 18 98 50",
-       "tipo": "MUSEUM",
-       "imagen": "san_anton.png",
-       "coordenadas": "43.3657984,-8.388310499999989",
-       "detalles": "",
-       "url": "http://www.coruna.es/servlet/Satellite?pagename=Nex/Page/Nex-Generica&cid=1207120205273&argIdioma=es&itemID=1149055937727&itemType=Entidad"
-     },
-     {
-        "nombre": "MUNCYT",
-        "direccion": "Paseo Alcalde Francisco Vazquez, 2, A",
-        "telefono": "900 10 01 34",
-        "tipo": "MUSEUM",
-        "imagen": "muncyt.png",
-        "coordenadas": "43.373221,-8.420419000000038",
-        "detalles": "Museo Nacional de ciencia y tecnologia",
-        "url": "http://www.muncyt.es/portal/site/MUNCYT/menuitem.b61c475b8dc0dd8a24b3171001432ea0/?vgnextoid=bf0c3efc68c5a210VgnVCM1000001034e20aRCRD"
-     },
-     {
-         "nombre": "Melia Maria Pita",
-         "direccion": "Av Pedro Barrié de la Maza, 3",
-         "telefono": "902 14 44 40",
-         "tipo": "HOTEL",
-         "imagen": "melia.png",
-         "coordenadas": "43.37519294533904,-8.40283028771421",
-         "detalles": "Hotel de 4 estrellas situado enfrente a la playa del orzan",
-         "url": "http://www.melia.com/es/hoteles/espana/a-coruna/melia-maria-pita/index.html"
-      },
-      {
-       "nombre": "Atica 21",
-       "direccion": "Rúa Enrique Mariñas, 34",
-       "telefono": "981 17 92 99",
-       "tipo": "HOTEL",
-       "imagen": "attica.png",
-       "coordenadas": "43.33971896628094,-8.404351779840113",
-       "detalles": "Hotel de 4 estrellas",
-       "url": "http://www.attica21hotels.com/es/5/hotel-attica21-coruna/"
-      },
-      {
-         "nombre": "AC Hotel A Coruña",
-         "direccion": " Rúa Enrique Mariñas Romero Periodista, 34",
-         "telefono": "981 17 54 90",
-         "tipo": "HOTEL",
-         "imagen": "accoruna.png",
-         "coordenadas": "43.33946146502071,-8.404083558938623",
-         "detalles": "Hotel de 4 estrellas ",
-         "url": "http://www.espanol.marriott.com/hotels/travel/lcgco-ac-hotel-a-coruna"
-      },
-      {
-       "nombre": "Hesperia Finisterre",
-       "direccion": " Paseo del Parrote, 2-4",
-       "telefono": "981 20 54 00",
-       "tipo": "HOTEL",
-       "imagen": "hesperia.png",
-       "coordenadas": "43.368708183377045,-8.392743179223658",
-       "detalles": "Hotel de 5 estrellas",
-       "url": "http://www.hotelfinisterre.net/microweb.php?id=160"
-       }
+    "data": [
+        {
+            "nombre": "Pza Maria Pita",
+            "direccion": "Plaza de Maria Pita",
+            "telefono": "",
+            "tipo": "MONUMENT",
+            "imagen": "plaza_maria_pita.png",
+            "coordenadas":"43.3709108 ,-8.396500199999991",
+            "detalles":"Plaza donde se encuentra el edificio del ayuntamiento de la Coruña ,en el centro de esta plaza se encuentra una estatua en honor a Maria Pita",
+            "url":"",
+            "identificador": "1"
+        },
+        {
+            "nombre": "Torre De Hercules",
+            "direccion": "Av Navarra, s/n",
+            "telefono": "981 22 37 30",
+            "tipo": "MONUMENT",
+            "imagen": "torre_hercules.png",
+            "coordenadas": "43.3859571, -8.40649529999996",
+            "detalles": "La Torre de Hercules es una torre y faro situado .Tiene el privilegio de ser el unico faro romano y el más antiguo en funcionamiento del mundo",
+            "url": "http://www.torredeherculesacoruna.com/",
+            "identificador": "2"
+        },
+        {
+            "nombre": "Castillo de San Antón",
+            "direccion": "Paseo Alcalde Francisco Vázquez 2",
+            "telefono": "981 18 98 50",
+            "tipo": "MONUMENT",
+            "imagen": "Castillo_San_Anton.png",
+            "coordenadas": "43.3657,-8.3877",
+            "detalles": "El Castillo de San Antón es un castillo del siglo XVI que formó parte de una red estratégica de castillos y baterías para defender la ciudad de La Coruña.",
+            "url": "http://www.coruna.es/servlet/Satellite?pagename=cultura/Page/Generico-Page-Generica&cid=1322783576553&itemID=1149055937727&itemType=Entidad",
+            "identificador": "3"
+        },
+        {
+            "nombre": "Parroquia de Santiago",
+            "direccion": "Calle de Parrote, 1",
+            "telefono": "981 20 56 96",
+            "tipo": "MONUMENT",
+            "imagen": "Parroquia_De_Santiago.png",
+            "coordenadas": "43.369267,-8.3939",
+            "detalles": "La Iglesia de Santiago es un templo de estilo románico cristiano situado en el casco antiguo de la ciudad.Fue construida en la segunda mitad del siglo XII, aunque sufrió posteriores reformas.",
+            "url": "",
+            "identificador": "4"
+        },
+        {
+            "nombre": "Colegiata de Santa María del Campo",
+            "direccion": "Plaza Santa María 1",
+            "telefono": "981 92 30 93",
+            "tipo": "MONUMENT",
+            "imagen": "Colegiata_de_Santa_Maria.png",
+            "coordenadas": "43.3707749,-8.3931002",
+            "detalles": "La Iglesia de Santiago es un templo de estilo románico cristiano situado en el casco antiguo de la ciudad.Fue construida en la segunda mitad del siglo XII, aunque sufrió posteriores reformas.",
+            "url": "",
+            "identificador": "5"
+        },
+        {
+            "nombre": "Jamonería La Leonesa",
+            "direccion": "Calle Santo Domingo, 2",
+            "telefono": "981 21 29 44",
+            "tipo": "RESTAURANT",
+            "imagen": "Jamoneria_La_Leonesa.png",
+            "coordenadas": "43.369847,-8.392257",
+            "detalles": "Especialidad en productos ibericos de bellota y embutidos artesanos de León.",
+            "url": "",
+            "identificador": "6"
+        },
+        {
+            "nombre": "Meson Os Trasnos",
+            "direccion": "Rua de San Mateo 10, Bajo",
+            "telefono": "981 91 58 67",
+            "tipo": "RESTAURANT",
+            "imagen": "Meson_Os_Trasnos.png",
+            "coordenadas": "43.369847,-8.392257",
+            "detalles": "Principalmente Cervecería, tambien ofrecemos cocina española y local, raciones abundantes y servicio de tapas.",
+            "url": "",
+            "identificador": "7"
+        },
+        {
+            "nombre": "Arbore Da Veira",
+            "direccion": "C/ San Andres, 109 bajo",
+            "telefono": "981 07 89 14",
+            "tipo": "RESTAURANT",
+            "imagen": "Arbore_Da_Veira.png",
+            "coordenadas": "43.3689366,-8.4042999",
+            "detalles": "Cocina de Autor. Acogedor restaurante con mobiliario de madera cruda de roble y cocina de autor del reconocido chef Luis Veira.",
+            "url": "",
+            "identificador": "8"
+        },
+        {
+            "nombre": "McDonalds",
+            "direccion": "Ronda de Outeiro, 419",
+            "telefono": "981 10 11 78",
+            "tipo": "RESTAURANT",
+            "imagen": "McDonalds.png",
+            "coordenadas": "43.3707299,-8.422986",
+            "detalles": "Hamburguesas y comida rápida",
+            "url": "",
+            "identificador": "9"
+        },
+        {
+            "nombre": "Sweet Place",
+            "direccion": "Calle Riego de Agua, 2,",
+            "telefono": "881 94 19 26",
+            "tipo": "RESTAURANT",
+            "imagen": "Sweet_Place.png",
+            "coordenadas": "43.3706741,-8.3968123",
+            "detalles": "Hamburguesas y comida rápida",
+            "url": "",
+            "identificador": "10"
+        },
+        {
+            "nombre": "Corte Ingles",
+            "direccion": "Ramón y Cajal, 57 y 59",
+            "telefono": "981 18 94 00",
+            "tipo": "SHOP",
+            "imagen": "Corte_Ingles.png",
+            "coordenadas": "43.3546952,-8.4035504",
+            "detalles": "Hipermercado",
+            "url": "http://www.elcorteingles.es/centroscomerciales/centroscomerciales/cargarAplicacionCentro.do?identificador=63&idComunidad=9",
+            "identificador": "11"
+        },
+        {
+            "nombre": "Zara",
+            "direccion": "Calle de Juan Flórez, 64 - 66",
+            "telefono": "981 25 38 47",
+            "tipo": "SHOP",
+            "imagen": "Zara.png",
+            "coordenadas": "43.363555,-8.408216",
+            "detalles": "Primera tienda de Zara abierta por Amancio Ortega en La Coruña.",
+            "url": "http://www.zara.com/",
+            "identificador": "12"
+        },
+        {
+            "nombre": "Aquarium Finisterrae",
+            "direccion": "Paseo Marítimo Alcalde Francisco Vázquez, 34, 15002 A Coruña, C",
+            "telefono": "981 18 98 42",
+            "tipo": "MUSEUM",
+            "imagen": "aquarium.png",
+            "coordenadas": "43.3840058, -8.409738000000061",
+            "detalles": "Pretende promover el conocimiento del océano y educar actitudes positivas de cariño hacia el medio marino, así como contribuir al conocimiento científico de la vida marina",
+            "url": "http://mc2coruna.org/aquarium/",
+            "identificador": "13"
+        },
+        {
+            "nombre": "Casa del Hombre",
+            "direccion": "C/ Angel Rebollo, 91, 15002 A Coruña, C",
+            "telefono": "981 18 98 40",
+            "tipo": "MUSEUM",
+            "imagen": "domus.png",
+            "coordenadas": "43.3776377, -8.406531099999938",
+            "detalles": "Museo cultural de carácter científico ubicado. Es el primer museo interactivo que trata de una forma global y monográfica el ser humano",
+            "url": "http://mc2coruna.org/domus/",
+            "identificador": "14"
+        },
+        {
+            "nombre": "Museo Arqueológico e Histórico Castillo de San Antón ",
+            "direccion": "Paseo Alcalde Francisco Vazquez, 2, A",
+            "telefono": "981 18 98 50",
+            "tipo": "MUSEUM",
+            "imagen": "san_anton.png",
+            "coordenadas": "43.3657984,-8.388310499999989",
+            "detalles": "",
+            "url": "http://www.coruna.es/servlet/Satellite?pagename=Nex/Page/Nex-Generica&cid=1207120205273&argIdioma=es&itemID=1149055937727&itemType=Entidad",
+            "identificador": "15"
+        },
+        {
+            "nombre": "MUNCYT",
+            "direccion": "Paseo Alcalde Francisco Vazquez, 2, A",
+            "telefono": "900 10 01 34",
+            "tipo": "MUSEUM",
+            "imagen": "muncyt.png",
+            "coordenadas": "43.373221,-8.420419000000038",
+            "detalles": "Museo Nacional de ciencia y tecnologia",
+            "url": "http://www.muncyt.es/portal/site/MUNCYT/menuitem.b61c475b8dc0dd8a24b3171001432ea0/?vgnextoid=bf0c3efc68c5a210VgnVCM1000001034e20aRCRD",
+            "identificador": "16"
+        },
+        {
+            "nombre": "Melia Maria Pita",
+            "direccion": "Av Pedro Barrié de la Maza, 3",
+            "telefono": "902 14 44 40",
+            "tipo": "HOTEL",
+            "imagen": "melia.png",
+            "coordenadas": "43.37519294533904,-8.40283028771421",
+            "detalles": "Hotel de 4 estrellas situado enfrente a la playa del orzan",
+            "url": "http://www.melia.com/es/hoteles/espana/a-coruna/melia-maria-pita/index.html",
+            "identificador": "17"
+        },
+        {
+            "nombre": "Atica 21",
+            "direccion": "Rúa Enrique Mariñas, 34",
+            "telefono": "981 17 92 99",
+            "tipo": "HOTEL",
+            "imagen": "attica.png",
+            "coordenadas": "43.33971896628094,-8.404351779840113",
+            "detalles": "Hotel de 4 estrellas",
+            "url": "http://www.attica21hotels.com/es/5/hotel-attica21-coruna/",
+            "identificador": "18"
+        },
+        {
+            "nombre": "AC Hotel A Coruña",
+            "direccion": " Rúa Enrique Mariñas Romero Periodista, 34",
+            "telefono": "981 17 54 90",
+            "tipo": "HOTEL",
+            "imagen": "accoruna.png",
+            "coordenadas": "43.33946146502071,-8.404083558938623",
+            "detalles": "Hotel de 4 estrellas ",
+            "url": "http://www.espanol.marriott.com/hotels/travel/lcgco-ac-hotel-a-coruna",
+            "identificador": "19"
+        },
+        {
+            "nombre": "Hesperia Finisterre",
+            "direccion": " Paseo del Parrote, 2-4",
+            "telefono": "981 20 54 00",
+            "tipo": "HOTEL",
+            "imagen": "hesperia.png",
+            "coordenadas": "43.368708183377045,-8.392743179223658",
+            "detalles": "Hotel de 5 estrellas",
+            "url": "http://www.hotelfinisterre.net/microweb.php?id=160",
+            "identificador": "20"
+        }
+    ],
 
-
-
-
-
-
-
-
-
-  ]
+    "rutas":[
+        {
+            "nombre": "Ruta 1",
+            "identificador": "1",
+            "puntos": [
+                {
+                    "idPuntoInteres":"1",
+                    "orden": "1"
+                },
+                {
+                    "idPuntoInteres":"3",
+                    "orden": "2"
+                },
+                {
+                    "idPuntoInteres":"4",
+                    "orden": "3"
+                }
+            ]
+        },
+        {
+            "nombre": "Ruta 2",
+            "identificador": "2",
+            "puntos": [
+             {
+                    "idPuntoInteres":"8",
+                    "orden": "1"
+                },
+                {
+                    "idPuntoInteres":"9",
+                    "orden": "2"
+                },
+                {
+                    "idPuntoInteres":"17",
+                    "orden": "3"
+                }
+            ]
+        }
+    ]
 }

@@ -45,7 +45,9 @@
                     android:text="@string/hello_world"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:background="@android:color/darker_gray"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
             </LinearLayout>
 
 
@@ -127,7 +129,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center"
                     android:id="@+id/tv_url"
-                    android:drawableLeft="@android:drawable/ic_menu_info_details"/>
+                    android:drawableLeft="@android:drawable/ic_menu_info_details"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

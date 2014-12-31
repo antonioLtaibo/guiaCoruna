@@ -16,6 +16,7 @@ public class PuntoInteres implements BaseColumns {
     private String coordenadas="";
     private String detalles="";
     private String url="";
+    private String identificador="";
 
 
     public static final String COL_ID = "_id";
@@ -28,6 +29,7 @@ public class PuntoInteres implements BaseColumns {
     public static final String COLUMN_NAME_COORDENADAS = "coordenadas";
     public static final String COLUMN_NAME_DETALLES = "detalles";
     public static final String COLUMN_NAME_URL = "url";
+    public static final String COLUMN_NAME_IDENTIFICADOR = "identificador";
 
     public String getNombre() {
         return nombre;
@@ -98,4 +100,14 @@ public class PuntoInteres implements BaseColumns {
             this.url = url;
         }
     }
+
+    public String getIdentificador(){
+        return this.identificador;
+    }
+
+    public void setIdentificador(String identificador){
+        this.identificador = identificador;
+    }
+
+
 }

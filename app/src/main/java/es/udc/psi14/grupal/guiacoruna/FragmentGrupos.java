@@ -92,9 +92,11 @@ public class FragmentGrupos extends Fragment implements View.OnClickListener {
         butMon.setOnClickListener(this);
         butHot.setOnClickListener(this);
 
+        /**
         SQLModel model;
         model = new SQLModel(getActivity().getBaseContext());
         model.loadInitData();
+        /**/
 
         return view;
 
