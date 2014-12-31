@@ -28,9 +28,11 @@ public class MainActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
+        /**/
         SQLModel model;
         model = new SQLModel(this);
         model.loadInitData();
+        /**/
 
         /****/
         // Initilization
@@ -69,6 +71,9 @@ public class MainActivity extends FragmentActivity implements
         }
         else if(id == R.id.action_add_punto){
             startActivity(new Intent(this, AddPuntoInteresActivity.class));
+            return true;
+        }else if (id == R.id.action_rutas_activ){
+            startActivity(new Intent(this, RutasActiv.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

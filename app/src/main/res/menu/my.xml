@@ -14,5 +14,8 @@
     <item android:id="@+id/action_add_punto"
         android:title="Add Punto Interes"
         android:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_rutas_activ"
+        android:title="Rutas"
+        android:showAsAction="ifRoom"/>
 
 </menu>

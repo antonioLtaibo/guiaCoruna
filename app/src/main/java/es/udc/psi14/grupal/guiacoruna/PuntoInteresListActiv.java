@@ -99,17 +99,17 @@ public class PuntoInteresListActiv extends Activity {
 
         if(menuItemName.compareTo("EDIT")==0){
             Toast.makeText(this, "EDIT on "+itemName , Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, AddPuntoInteres.class);
+            Intent intent = new Intent(this, AddPuntoInteresActivity.class);
             Bundle extras = new Bundle();
-            extras.putString(AddPuntoInteres.campoNombre, pi.getNombre());
-            extras.putString(AddPuntoInteres.campoTelefono, pi.getTelefono());
-            extras.putString(AddPuntoInteres.campoDireccion, pi.getDireccion());
-            extras.putString(AddPuntoInteres.campoCoordenadas, pi.getCoordenadas());
-            extras.putString(AddPuntoInteres.campoTipo, pi.getTipo());
-            extras.putString(AddPuntoInteres.campoImagenNombre, pi.getImageString());
+            extras.putString(AddPuntoInteresActivity.campoNombre, pi.getNombre());
+            extras.putString(AddPuntoInteresActivity.campoTelefono, pi.getTelefono());
+            extras.putString(AddPuntoInteresActivity.campoDireccion, pi.getDireccion());
+            extras.putString(AddPuntoInteresActivity.campoCoordenadas, pi.getCoordenadas());
+            extras.putString(AddPuntoInteresActivity.campoTipo, pi.getTipo());
+            extras.putString(AddPuntoInteresActivity.campoImagenNombre, pi.getImageString());
 
-            extras.putString(AddPuntoInteres.activityMode, AddPuntoInteres.activityModeEdit);
-            extras.putInt(AddPuntoInteres.idString, pi.getId());
+            extras.putString(AddPuntoInteresActivity.activityMode, AddPuntoInteresActivity.activityModeEdit);
+            extras.putInt(AddPuntoInteresActivity.idString, pi.getId());
 
             intent.putExtras(extras);
 

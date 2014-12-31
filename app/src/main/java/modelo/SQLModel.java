@@ -110,6 +110,60 @@ public class SQLModel implements ModelInterface {
     }
 
 
+
+    @Override
+    public boolean addPuntoRuta(PuntoRuta nuevoPunto)  {
+        SQLiteOpenHelper helper = new PuntoRutaDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        try {
+            // Create a new map of values, where column names are the keys
+            ContentValues values = new ContentValues();
+            values.put(PuntoRuta.COLUMN_NAME_ID_PUNTO, nuevoPunto.getIdPuntoInteres());
+            values.put(PuntoRuta.COLUMN_NAME_ID_RUTA, nuevoPunto.getIdRuta());
+            values.put(PuntoRuta.COLUMN_NAME_ORDEN, nuevoPunto.getOrden());
+
+            db.insert(
+                    PuntoRuta.TABLE_NAME,
+                    null,
+                    values);
+
+            return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return false;
+        }finally {
+            db.close();
+        }
+    }
+
+
+
+    @Override
+    public boolean addRuta(Ruta ruta)  {
+        SQLiteOpenHelper helper = new RutaDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        try {
+            // Create a new map of values, where column names are the keys
+            ContentValues values = new ContentValues();
+            values.put(Ruta.COLUMN_NAME_NOMBRE, ruta.getNombre());
+            values.put(Ruta.COLUMN_NAME_ID_RUTA, ruta.getIdRuta());
+
+            db.insert(
+                    Ruta.TABLE_NAME,
+                    null,
+                    values);
+
+            return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return false;
+        }finally {
+            db.close();
+        }
+    }
+
     @Override
     public boolean addPuntoInteres(PuntoInteres pi) throws InvalidPIException {
         this.validatePI(pi);
@@ -128,6 +182,7 @@ public class SQLModel implements ModelInterface {
             values.put(PuntoInteres.COLUMN_NAME_COORDENADAS,pi.getCoordenadas());
             values.put(PuntoInteres.COLUMN_NAME_DETALLES,pi.getDetalles());
             values.put(PuntoInteres.COLUMN_NAME_URL,pi.getUrl());
+            values.put(PuntoInteres.COLUMN_NAME_IDENTIFICADOR, pi.getIdentificador());
 
             db.insert(
                     PuntoInteres.TABLE_NAME,
@@ -158,7 +213,8 @@ public class SQLModel implements ModelInterface {
                     PuntoInteres.COLUMN_NAME_IMAGEN,
                     PuntoInteres.COLUMN_NAME_COORDENADAS,
                     PuntoInteres.COLUMN_NAME_DETALLES,
-                    PuntoInteres.COLUMN_NAME_URL
+                    PuntoInteres.COLUMN_NAME_URL,
+                    PuntoInteres.COLUMN_NAME_IDENTIFICADOR
 
             };
             String sortOrder = PuntoInteres.COLUMN_NAME_NOMBRE + " DESC";
@@ -206,6 +262,8 @@ public class SQLModel implements ModelInterface {
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DETALLES));
                 String url = cursor.getString(
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_URL));
+                String identificador = cursor.getString(
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IDENTIFICADOR));
 
                 PuntoInteres pi = new PuntoInteres();
                 pi.setId(id);
@@ -217,6 +275,8 @@ public class SQLModel implements ModelInterface {
                 pi.setCoordenadas(coordenadas);
                 pi.setDetalles(detalles);
                 pi.setUrl(url);
+                pi.setIdentificador(identificador);
+
                 return pi;
             }else{
                 return null;
@@ -252,6 +312,8 @@ public class SQLModel implements ModelInterface {
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_DETALLES));
                 String url = cursor.getString(
                         cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_URL));
+                String identificador = cursor.getString(
+                        cursor.getColumnIndexOrThrow(PuntoInteres.COLUMN_NAME_IDENTIFICADOR));
 
                 PuntoInteres pi = new PuntoInteres();
                 pi.setId(id);
@@ -263,6 +325,7 @@ public class SQLModel implements ModelInterface {
                 pi.setCoordenadas(coordenadas);
                 pi.setDetalles(detalles);
                 pi.setUrl(url);
+                pi.setIdentificador(identificador);
 
                 results.add(pi);
 
@@ -286,6 +349,78 @@ public class SQLModel implements ModelInterface {
         cursor.close();
         return pi;
     }
+
+
+    @Override
+    public PuntoInteres findByIdentificador(String identificador) {
+        String[] selectionArgs = {
+                identificador
+        };
+        Cursor cursor =
+                this.findByField(PuntoInteres.COLUMN_NAME_IDENTIFICADOR,selectionArgs);
+        PuntoInteres pi = this.parseSingleResult(cursor);
+        cursor.close();
+        return pi;
+    }
+
+
+    @Override
+    public Ruta findRutaByIdentificador(String identificador) {
+        String[] selectionArgs = {
+                identificador
+        };
+        String selection = Ruta.COLUMN_NAME_ID_RUTA;
+        SQLiteOpenHelper helper = new RutaDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String[] projection = {
+                    Ruta.COL_ID,
+                    Ruta.COLUMN_NAME_NOMBRE,
+                    Ruta.COLUMN_NAME_ID_RUTA
+            };
+            String sortOrder = Ruta.COLUMN_NAME_NOMBRE + " DESC";
+            if(selection!=null) selection = selection + "=?";
+
+            cursor = db.query(
+                    Ruta.TABLE_NAME,  // The table to query
+                    projection,                               // The columns to return
+                    selection,                                // The columns for the WHERE clause
+                    selectionArgs,                            // The values for the WHERE clause
+                    null,                                     // don't group the rows
+                    null,                                     // don't filter by row groups
+                    sortOrder                                 // The sort order
+            );
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        try{
+            boolean hasData = cursor.moveToFirst();
+            if(hasData) {
+                Integer id = cursor.getInt(
+                        cursor.getColumnIndex(Ruta.COL_ID));
+                String nombre = cursor.getString(
+                        cursor.getColumnIndexOrThrow(Ruta.COLUMN_NAME_NOMBRE));
+                String id_ruta = cursor.getString(
+                        cursor.getColumnIndexOrThrow(Ruta.COLUMN_NAME_ID_RUTA));
+
+                Ruta ruta = new Ruta();
+                ruta.setId(id);
+                ruta.setIdRuta(id_ruta);
+                ruta.setNombre(nombre);
+
+                return ruta;
+            }else{
+                return null;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
 
     @Override
     public PuntoInteres findByID(String id) {
@@ -312,6 +447,110 @@ public class SQLModel implements ModelInterface {
         return puntos;
     }
 
+
+    @Override
+    public List<Ruta> getAllRutas(){
+        SQLiteOpenHelper helper = new RutaDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor returnCursor;
+        try {
+            String[] projection = {
+                    Ruta.COL_ID,
+                    Ruta.COLUMN_NAME_ID_RUTA,
+                    Ruta.COLUMN_NAME_NOMBRE
+            };
+            String sortOrder = PuntoInteres.COLUMN_NAME_NOMBRE + " DESC";
+
+
+            Cursor cursor = db.query(
+                    Ruta.TABLE_NAME,  // The table to query
+                    projection,                               // The columns to return
+                    null,                                // The columns for the WHERE clause
+                    null,                            // The values for the WHERE clause
+                    null,                                     // don't group the rows
+                    null,                                     // don't filter by row groups
+                    sortOrder                                 // The sort order
+            );
+            List results = new LinkedList <Ruta>();
+            boolean moreRows = cursor.moveToFirst();
+
+            while(moreRows){
+
+                Integer id = cursor.getInt(
+                        cursor.getColumnIndex(Ruta.COL_ID));
+                String nombre = cursor.getString(
+                        cursor.getColumnIndexOrThrow(Ruta.COLUMN_NAME_NOMBRE));
+                String identificador = cursor.getString(
+                        cursor.getColumnIndexOrThrow(Ruta.COLUMN_NAME_ID_RUTA));
+
+                Ruta ruta = new Ruta();
+                ruta.setId(id);
+                ruta.setIdRuta(identificador);
+                ruta.setNombre(nombre);
+
+                results.add(ruta);
+
+                moreRows = cursor.moveToNext();
+            }
+            return results;
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<PuntoRuta> findPuntosByRutaID(String identificador) {
+        String[] selectionArgs = {
+                identificador
+        };
+        String selection = PuntoRuta.COLUMN_NAME_ID_RUTA;
+        SQLiteOpenHelper helper = new PuntoRutaDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String[] projection = {
+                    PuntoRuta.COLUMN_NAME_ID_PUNTO,
+                    PuntoRuta.COLUMN_NAME_ORDEN
+            };
+            String sortOrder = PuntoRuta.COLUMN_NAME_ORDEN + " ASC";
+            if(selection!=null) selection = selection + "=?";
+
+            cursor = db.query(
+                    PuntoRuta.TABLE_NAME,  // The table to query
+                    projection,                               // The columns to return
+                    selection,                                // The columns for the WHERE clause
+                    selectionArgs,                            // The values for the WHERE clause
+                    null,                                     // don't group the rows
+                    null,                                     // don't filter by row groups
+                    sortOrder                                 // The sort order
+            );
+            List results = new LinkedList <PuntoRuta>();
+            boolean moreRows = cursor.moveToFirst();
+
+            while(moreRows){
+
+                String identificadorPunto = cursor.getString(
+                        cursor.getColumnIndexOrThrow(PuntoRuta.COLUMN_NAME_ID_PUNTO));
+                String orden = cursor.getString(
+                        cursor.getColumnIndexOrThrow(PuntoRuta.COLUMN_NAME_ORDEN));
+
+                PuntoRuta pr = new PuntoRuta();
+                pr.setOrden(orden);
+                pr.setIdPuntoInteres(identificadorPunto);
+                results.add(pr);
+                moreRows = cursor.moveToNext();
+            }
+            return results;
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+
     @Override
     public List<PuntoInteres> getAll() {
         Cursor cursor =
@@ -324,7 +563,7 @@ public class SQLModel implements ModelInterface {
     @Override
     public boolean updatePuntoInteres(PuntoInteres pi) throws InvalidPIException {
         SQLiteOpenHelper helper = new PuntoInteresDBHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase();
         boolean status = false;
         this.validatePI(pi);
 
@@ -339,6 +578,7 @@ public class SQLModel implements ModelInterface {
             values.put(PuntoInteres.COLUMN_NAME_COORDENADAS,pi.getCoordenadas());
             values.put(PuntoInteres.COLUMN_NAME_DETALLES,pi.getDetalles());
             values.put(PuntoInteres.COLUMN_NAME_URL,pi.getUrl());
+            values.put(PuntoInteres.COLUMN_NAME_IDENTIFICADOR, pi.getIdentificador());
 
             String strFilter = "_id=" + pi.getId();
 
@@ -360,12 +600,12 @@ public class SQLModel implements ModelInterface {
     }
 
 
-    public void loadInitData(){
+    public void loadInitData() {
         setFilenameLock();
-        Log.d(TAG, "Using lock file: "+filenameLock);
-        if(this.DefaultDataExists()){
-           Log.d(TAG, "Data Already Loaded");
-           return;
+        Log.d(TAG, "Using lock file: " + filenameLock);
+        if (this.DefaultDataExists()) {
+            Log.d(TAG, "Data Already Loaded");
+            return;
         }
         createLockData();
 
@@ -375,14 +615,13 @@ public class SQLModel implements ModelInterface {
         try {
             final Reader in = new InputStreamReader(is, "UTF-8");
             try {
-                for (;;) {
+                for (; ; ) {
                     int rsz = in.read(buffer, 0, buffer.length);
                     if (rsz < 0)
                         break;
                     out.append(buffer, 0, rsz);
                 }
-            }
-            finally {
+            } finally {
                 in.close();
             }
         } catch (UnsupportedEncodingException ex) {
@@ -401,14 +640,14 @@ public class SQLModel implements ModelInterface {
         PuntoInteres pi;
         try {
             obj = new JSONObject(fileString);
+
             JSONArray arr = obj.getJSONArray("data");
-            for (int i = 0; i < arr.length(); i++)
-            {
-                String nombre = arr.getJSONObject(i).getString("nombre");
-                pi = this.findByName(nombre);
-                if (pi != null){
+            for (int i = 0; i < arr.length(); i++) {
+                String identificador = arr.getJSONObject(i).getString("identificador");
+                pi = this.findByIdentificador(identificador);
+                if (pi != null) {
                     //ACTUALIZAR
-                    pi.setNombre(nombre);
+                    pi.setNombre(arr.getJSONObject(i).getString("nombre"));
                     pi.setDireccion(arr.getJSONObject(i).getString("direccion"));
                     pi.setTelefono(arr.getJSONObject(i).getString("telefono"));
                     pi.setTipo(arr.getJSONObject(i).getString("tipo"));
@@ -416,15 +655,17 @@ public class SQLModel implements ModelInterface {
                     pi.setCoordenadas(arr.getJSONObject(i).getString("coordenadas"));
                     pi.setDetalles(arr.getJSONObject(i).getString("detalles"));
                     pi.setUrl(arr.getJSONObject(i).getString("url"));
+                    pi.setIdentificador(arr.getJSONObject(i).getString("identificador"));
+
                     try {
                         this.updatePuntoInteres(pi);
                     } catch (InvalidPIException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     //CREAR
                     pi = new PuntoInteres();
-                    pi.setNombre(nombre);
+                    pi.setNombre(arr.getJSONObject(i).getString("nombre"));
                     pi.setDireccion(arr.getJSONObject(i).getString("direccion"));
                     pi.setTelefono(arr.getJSONObject(i).getString("telefono"));
                     pi.setTipo(arr.getJSONObject(i).getString("tipo"));
@@ -432,6 +673,7 @@ public class SQLModel implements ModelInterface {
                     pi.setCoordenadas(arr.getJSONObject(i).getString("coordenadas"));
                     pi.setDetalles(arr.getJSONObject(i).getString("detalles"));
                     pi.setUrl(arr.getJSONObject(i).getString("url"));
+                    pi.setIdentificador(arr.getJSONObject(i).getString("identificador"));
 
                     try {
                         this.addPuntoInteres(pi);
@@ -451,14 +693,45 @@ public class SQLModel implements ModelInterface {
                     if (image != null) ImgManager.saveToInternalSorage(image, imageStringIcon);
                 }
             }
+
+            arr = obj.getJSONArray("rutas");
+            for (int i = 0; i < arr.length(); i++) {
+                String identificador = arr.getJSONObject(i).getString("identificador");
+                Ruta ruta = this.findRutaByIdentificador(identificador);
+                if (ruta != null) {
+                    //ACTUALIZAR
+
+
+                } else {
+                    //CREAR
+                    Log.d(TAG, "Nueva ruta a crear.");
+                    ruta = new Ruta();
+                    ruta.setNombre(arr.getJSONObject(i).getString("nombre"));
+                    String idRuta = arr.getJSONObject(i).getString("identificador");
+                    ruta.setIdRuta(idRuta);
+                    this.addRuta(ruta);
+
+                    JSONArray puntosRuta = arr.getJSONObject(i).getJSONArray("puntos");
+                    PuntoRuta nuevoPunto = null;
+                    for (int j = 0; j < puntosRuta.length(); j++) {
+                        Log.d(TAG, "Nuevo punto de ruta a crear.");
+                        nuevoPunto = new PuntoRuta();
+                        nuevoPunto.setIdRuta(idRuta);
+                        nuevoPunto.setIdPuntoInteres(puntosRuta.getJSONObject(j).getString("idPuntoInteres"));
+                        nuevoPunto.setOrden(puntosRuta.getJSONObject(j).getString("orden"));
+
+                        this.addPuntoRuta(nuevoPunto);
+                    }
+                }
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         image = assets.getImage("noPhoto.png");
-        ImgManager.saveToInternalSorage(image,"noPhoto.png");
+        ImgManager.saveToInternalSorage(image, "noPhoto.png");
         image = assets.getImageIcon("noPhoto.png");
-        ImgManager.saveToInternalSorage(image,"noPhoto_icon.png");
-
+        ImgManager.saveToInternalSorage(image, "noPhoto_icon.png");
     }
-
 }

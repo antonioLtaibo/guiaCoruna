@@ -125,17 +125,17 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.editar) {
-            Intent intent = new Intent(this, AddPuntoInteres.class);
+            Intent intent = new Intent(this, AddPuntoInteresActivity.class);
             Bundle extras = new Bundle();
-            extras.putString(AddPuntoInteres.campoNombre, puntoInteres.getNombre());
-            extras.putString(AddPuntoInteres.campoTelefono, puntoInteres.getTelefono());
-            extras.putString(AddPuntoInteres.campoDireccion, puntoInteres.getDireccion());
-            extras.putString(AddPuntoInteres.campoCoordenadas, puntoInteres.getCoordenadas());
-            extras.putString(AddPuntoInteres.campoTipo, puntoInteres.getTipo());
-            extras.putString(AddPuntoInteres.campoImagenNombre, puntoInteres.getImageString());
+            extras.putString(AddPuntoInteresActivity.campoNombre, puntoInteres.getNombre());
+            extras.putString(AddPuntoInteresActivity.campoTelefono, puntoInteres.getTelefono());
+            extras.putString(AddPuntoInteresActivity.campoDireccion, puntoInteres.getDireccion());
+            extras.putString(AddPuntoInteresActivity.campoCoordenadas, puntoInteres.getCoordenadas());
+            extras.putString(AddPuntoInteresActivity.campoTipo, puntoInteres.getTipo());
+            extras.putString(AddPuntoInteresActivity.campoImagenNombre, puntoInteres.getImageString());
 
-            extras.putString(AddPuntoInteres.activityMode, AddPuntoInteres.activityModeEdit);
-            extras.putInt(AddPuntoInteres.idString, puntoInteres.getId());
+            extras.putString(AddPuntoInteresActivity.activityMode, AddPuntoInteresActivity.activityModeEdit);
+            extras.putInt(AddPuntoInteresActivity.idString, puntoInteres.getId());
 
             intent.putExtras(extras);
 

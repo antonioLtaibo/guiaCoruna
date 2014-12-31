@@ -17,6 +17,8 @@ public interface ModelInterface {
     //Se usará el nombre como identificador.
     public PuntoInteres findByName(String nombre);
 
+    public PuntoInteres findByIdentificador(String identificador);
+
     //Se usa el  identificador.
     public PuntoInteres findByID(String id);
 
@@ -27,5 +29,16 @@ public interface ModelInterface {
     public List<PuntoInteres> getAll();
 
     public boolean updatePuntoInteres(PuntoInteres pi) throws InvalidPIException;
+
+    public Ruta findRutaByIdentificador(String identificador);
+
+    public boolean addRuta(Ruta ruta);
+
+    public boolean addPuntoRuta(PuntoRuta nuevoPunto);
+
+    public List<PuntoRuta> findPuntosByRutaID(String identificador);
+
+    public List<Ruta> getAllRutas();
+
 
 }
