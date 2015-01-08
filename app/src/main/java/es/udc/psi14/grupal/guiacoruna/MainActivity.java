@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +20,7 @@ public class MainActivity extends FragmentActivity implements
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
+    Intent i;
     // Tab titles
     private String[] tabs = { "Grupos", "Mapa"};
 
@@ -32,6 +34,9 @@ public class MainActivity extends FragmentActivity implements
         SQLModel model;
         model = new SQLModel(this);
         model.loadInitData();
+
+        i = new Intent(this,NotificationService.class);
+        startService(i);
         /**/
 
         /****/
@@ -52,6 +57,12 @@ public class MainActivity extends FragmentActivity implements
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ON STOP","ON DESTROSIJNM SINJK");
+        stopService(i);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -40,6 +40,7 @@ public class DetallesActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_detalles);
 
         if (getIntent().getExtras()!=null) {
+            Log.d("ENTRO", "AQUI EN DETALLES");
             model = new SQLModel(this);
             Bundle extra = getIntent().getExtras(); // check if not null
             id = extra.getInt(util.TAG_ID,0);

@@ -22,5 +22,6 @@
     <string name="title_activity_selec_punto">Selecione Punto</string>
     <string name="add_punto">accept</string>
     <string name="select">selecione el punto</string>
+    <string name="distance_notific">Distancia hasta el punto: </string>
 
 </resources>
