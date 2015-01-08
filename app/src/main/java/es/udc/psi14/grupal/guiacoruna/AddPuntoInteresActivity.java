@@ -46,6 +46,8 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
     static final String activityModeEdit  = "EDIT";
     String mode = activityModeCreate;
     static final String activityMode = "ACTIVITY_MODE";
+    static final String latitude = "LATITUDE";
+    static final String longitude = "LONGITUDE";
 
     Integer updating_pi_ID;
     static final String idString ="ID";
@@ -80,8 +82,10 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
     String imageThumbnailString="";
 
     private LocationManager locateManager;
+    Boolean maps = false;
 
     static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_SEND_COORD = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,7 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
         setContentView(R.layout.activity_add_punto_interes);
 
         model = new SQLModel(this);
+
 
         et_nombre = (EditText) findViewById(R.id.et_nombre);
         et_direccion = (EditText) findViewById(R.id.et_direccion);
@@ -112,23 +117,32 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
         spinnerTipo.setAdapter(adapter);
         spinnerTipo.setOnItemSelectedListener(this);
         locateManager = (LocationManager)getSystemService(LOCATION_SERVICE);
-
+        //if (intent.getExtras()!=null){
+        //
+        //}
 
         if(getIntent().getExtras() != null){
-            et_nombre.setText(getIntent().getExtras().getString(campoNombre));
-            et_direccion.setText(getIntent().getExtras().getString(campoDireccion));
-            et_telefono.setText(getIntent().getExtras().getString(campoTelefono));
-            coordenadas = getIntent().getExtras().getString(campoCoordenadas);
-            tipo = getIntent().getExtras().getString(campoTipo);
-            imageFullString = getIntent().getExtras().getString(campoImagenNombre);
-
             mode = getIntent().getExtras().getString(activityMode);
-            updating_pi_ID = getIntent().getExtras().getInt(idString);
 
-            int spinnerPostion = adapter.getPosition(tipo);
-            spinnerTipo.setSelection(spinnerPostion);
-            spinnerPostion = 0;
+            if (mode.equals(activityModeCreate)){
+                loc.setVisibility(View.GONE);
+                maps = true;
+                coordenadas = String.valueOf(getIntent().getDoubleExtra(latitude,0))+","+ String.valueOf(getIntent().getDoubleExtra(longitude,0));
+                et_direccion.setText(getIntent().getStringExtra(campoDireccion));
+            }else {
+                et_nombre.setText(getIntent().getExtras().getString(campoNombre));
+                et_direccion.setText(getIntent().getExtras().getString(campoDireccion));
+                et_telefono.setText(getIntent().getExtras().getString(campoTelefono));
+                coordenadas = getIntent().getExtras().getString(campoCoordenadas);
+                tipo = getIntent().getExtras().getString(campoTipo);
+                imageFullString = getIntent().getExtras().getString(campoImagenNombre);
 
+                updating_pi_ID = getIntent().getExtras().getInt(idString);
+
+                int spinnerPostion = adapter.getPosition(tipo);
+                spinnerTipo.setSelection(spinnerPostion);
+                spinnerPostion = 0;
+            }
             butt_enviar.setText(mode);
         }
 
@@ -183,16 +197,24 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
                 imagen.setImageBitmap(imageData);
                 Log.d(TAG, "Saving image to external");
                 ImageManagerExternal ImgManager = new ImageManagerExternal(this);
-                Bitmap ThumbImage1 = ThumbnailUtils.extractThumbnail(imageData, 2048, 2048);
+                Bitmap ThumbImage1 = ThumbnailUtils.extractThumbnail(imageData, 1024, 1024);
                 ImgManager.saveToExternalSorage(ThumbImage1, imageFullString);
 
 
                 Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(imageData, 64, 64);
                 ImgManager.saveToExternalSorage(ThumbImage,imageThumbnailString);
-
             }
         }
+        if (requestCode == REQUEST_SEND_COORD && resultCode == RESULT_OK){
+            //codigo de las coordenadas
+            coordenadas = data.getStringExtra(campoCoordenadas);
+            et_direccion.setText(data.getStringExtra(campoDireccion));
+            Log.d("COORDENADAS",coordenadas);
+        }
+
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -236,6 +258,15 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
             } catch (InvalidPIException e) {
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
             }
+            if(exito){
+                et_telefono.setText("");
+                et_nombre.setText("");
+                et_direccion.setText("");
+                imagen.setImageResource(0);
+                Toast.makeText(this, "Item insertado con éxito", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this,"Inserción Falló",Toast.LENGTH_SHORT).show();
+            }
         }else if(view == butt_photo) {
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -250,14 +281,18 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
                 Toast.makeText(this,"No hay una tarjeta SD",Toast.LENGTH_SHORT).show();
             }
         }else if (view == loc){
-            //TODO location manager
             boolean enabled = locateManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            // check if enabled and if not send user to the GPS settings
+            startActivityForResult(new Intent(getApplicationContext(), selecPuntoActiv.class), REQUEST_SEND_COORD);
+
+            /*// check if enabled and if not send user to the GPS settings
             if (!enabled) {
                 locateManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
             }else {
                 locateManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            }
+            }*/
+
+
+
         }
     }
 

@@ -18,5 +18,9 @@
     <string name="title_activity_maps">mapsActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_rutas">RutasActivity</string>
+    <string name="title_activity_selecion_punto">selecionPuntoActiv</string>
+    <string name="title_activity_selec_punto">Selecione Punto</string>
+    <string name="add_punto">accept</string>
+    <string name="select">selecione el punto</string>
 
 </resources>

@@ -10,9 +10,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import modelo.SQLModel;
 import util.util;
@@ -23,8 +28,13 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
 import modelo.PuntoInteres;
 
@@ -39,7 +49,7 @@ import modelo.PuntoInteres;
  * create an instance of this fragment.
  *
  */
-public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener {
+public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +66,7 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
     private LinkedList<PuntoInteres> items;
     private OnFragmentInteractionListener mListener;
     private SupportMapFragment fragment;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -115,10 +126,12 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
             mMap = fragment.getMap();
             if (mMap != null) {
                 setUpMap();
-                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 mMap.setOnInfoWindowClickListener(this);
+                mMap.setOnMapLongClickListener(this);
             }
         }
+        setUpMap();
     }
 
     private void setUpMap() {
@@ -132,7 +145,6 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
                 .zoom(13)
                 .build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        mMap.setOnMapClickListener(this);
         items = ((LinkedList) model.getAll());
         Log.d("Number of items to draw in map: ",String.valueOf(items.size()));
         for (i=0;i<items.size();i++){
@@ -193,6 +205,31 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
 
     }
 
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        Intent i = new Intent(getActivity().getApplicationContext(),AddPuntoInteresActivity.class);
+        i.putExtra(AddPuntoInteresActivity.activityMode,AddPuntoInteresActivity.activityModeCreate);
+        i.putExtra(AddPuntoInteresActivity.latitude,latLng.latitude);
+        i.putExtra(AddPuntoInteresActivity.longitude,latLng.longitude);
+        Geocoder gc = new Geocoder(getActivity().getApplicationContext(), Locale.getDefault());
+        String addressString = "";
+        try {
+            List<Address> addresses =gc.getFromLocation(latLng.latitude, latLng.longitude, 1);
+// smaller numbers (1 to 5) are recommended for maxResults
+            StringBuilder sb = new StringBuilder();
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                sb.append(address.getAddressLine(0)).append(" ");
+                sb.append(address.getLocality());
+
+            }
+            addressString = sb.toString();
+
+        } catch (IOException e) {}
+        i.putExtra(AddPuntoInteresActivity.campoDireccion,addressString);
+        startActivity(i);
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -218,5 +255,8 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
+
 
 }
