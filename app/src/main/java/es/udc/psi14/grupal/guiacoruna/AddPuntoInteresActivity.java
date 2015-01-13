@@ -39,7 +39,7 @@ import util.ImageManagerExternal;
 import util.InvalidPIException;
 
 
-public class AddPuntoInteresActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener,LocationListener {
+public class AddPuntoInteresActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 
     static final String activityModeCreate = "CREATE";
@@ -116,10 +116,7 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipo.setAdapter(adapter);
         spinnerTipo.setOnItemSelectedListener(this);
-        locateManager = (LocationManager)getSystemService(LOCATION_SERVICE);
-        //if (intent.getExtras()!=null){
-        //
-        //}
+
 
         if(getIntent().getExtras() != null){
             mode = getIntent().getExtras().getString(activityMode);
@@ -281,41 +278,9 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
                 Toast.makeText(this,"No hay una tarjeta SD",Toast.LENGTH_SHORT).show();
             }
         }else if (view == loc){
-            boolean enabled = locateManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             startActivityForResult(new Intent(getApplicationContext(), selecPuntoActiv.class), REQUEST_SEND_COORD);
 
-            /*// check if enabled and if not send user to the GPS settings
-            if (!enabled) {
-                locateManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
-            }else {
-                locateManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            }*/
-
-
-
         }
-    }
-
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_punto_interes, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -331,33 +296,6 @@ public class AddPuntoInteresActivity extends Activity implements View.OnClickLis
         tipo = "";
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        coordenadas = String.valueOf(location.getLatitude())+","+ String.valueOf(location.getLongitude());
-        Log.d("COORDENADAS",coordenadas);
 
 
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        locateManager.removeUpdates(this);
-    }
 }

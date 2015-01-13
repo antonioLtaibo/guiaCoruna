@@ -146,10 +146,10 @@ public class FragmentMapa extends Fragment implements GoogleMap.OnInfoWindowClic
                 .build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         items = ((LinkedList) model.getAll());
-        Log.d("Number of items to draw in map: ",String.valueOf(items.size()));
+        //Log.d("Number of items to draw in map: ",String.valueOf(items.size()));
         for (i=0;i<items.size();i++){
-            Log.d("ID PUNTO INTERES ->>", items.get(i).getCoordenadas());
-            Log.d("ID PUNTO INTERES ->>", String.valueOf(items.get(i).getId()));
+            //Log.d("ID PUNTO INTERES ->>", items.get(i).getCoordenadas());
+            //Log.d("ID PUNTO INTERES ->>", String.valueOf(items.get(i).getId()));
             drawable = util.findIconType(items.get(i).getTipo());
             if(items.get(i).getCoordenadas().compareTo("")==0){
 

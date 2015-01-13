@@ -4,8 +4,10 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -22,42 +24,14 @@ public class RutasActiv extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private String TAG = "RutasMap";
+    private static final LatLng CORUNA_POINT = new LatLng(43.36763,-8.40801);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rutas);
         setUpMapIfNeeded();
-
-        SQLModel modelo = new SQLModel(this);
-        LinkedList<Ruta> rutas = (LinkedList<Ruta>) modelo.getAllRutas();
-        for(Ruta ruta : rutas){
-            Log.d(TAG, "Ruta encontrada: " + ruta.getNombre());
-            LinkedList<PuntoRuta> puntos = (LinkedList<PuntoRuta>) modelo.findPuntosByRutaID(ruta.getIdRuta());
-
-            PolylineOptions rectOptions = new PolylineOptions();
-
-
-            for(PuntoRuta punto : puntos){
-                Log.d(TAG, "Punto contenido en ruta "+ruta.getId() + " con id de punto interes: " + punto.getIdPuntoInteres());
-                PuntoInteres pi = modelo.findByID(punto.getIdPuntoInteres());
-                String coordenadas = pi.getCoordenadas();
-                Log.d(TAG, "Las coordenadas del punto son: "+ coordenadas);
-
-                //Tener en cuenta los posibles puntos de interes borrados, devuelven un nulo.
-
-
-                int index = coordenadas.indexOf(",");
-                String lat = coordenadas.substring(0, index).trim();
-                String lng = coordenadas.substring(index+1).trim();
-                double lati = Double.parseDouble(lat);
-                double lngi = Double.parseDouble(lng);
-                LatLng newLoc = new LatLng(lati, lngi);
-                rectOptions.add(newLoc);
-            }
-
-            Polyline polyline = mMap.addPolyline(rectOptions);
-        }
 
     }
 
@@ -102,6 +76,41 @@ public class RutasActiv extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(CORUNA_POINT)
+                .zoom(13)
+                .build();
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        SQLModel modelo = new SQLModel(this);
+        LinkedList<Ruta> rutas = (LinkedList<Ruta>) modelo.getAllRutas();
+        for(Ruta ruta : rutas){
+            //Log.d(TAG, "Ruta encontrada: " + ruta.getNombre());
+            LinkedList<PuntoRuta> puntos = (LinkedList<PuntoRuta>) modelo.findPuntosByRutaID(ruta.getIdRuta());
+
+            PolylineOptions rectOptions = new PolylineOptions();
+
+
+            for(PuntoRuta punto : puntos){
+                //Log.d(TAG, "Punto contenido en ruta "+ruta.getId() + " con id de punto interes: " + punto.getIdPuntoInteres());
+                PuntoInteres pi = modelo.findByID(punto.getIdPuntoInteres());
+                if (pi != null) {
+                    String coordenadas = pi.getCoordenadas();
+                    //Log.d(TAG, "Las coordenadas del punto son: "+ coordenadas);
+
+                    //Tener en cuenta los posibles puntos de interes borrados, devuelven un nulo.
+
+
+                    int index = coordenadas.indexOf(",");
+                    String lat = coordenadas.substring(0, index).trim();
+                    String lng = coordenadas.substring(index + 1).trim();
+                    double lati = Double.parseDouble(lat);
+                    double lngi = Double.parseDouble(lng);
+                    LatLng newLoc = new LatLng(lati, lngi);
+                    rectOptions.add(newLoc);
+                }
+            }
+
+            Polyline polyline = mMap.addPolyline(rectOptions);
+        }
     }
 }

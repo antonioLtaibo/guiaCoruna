@@ -30,7 +30,6 @@ public class NotificationService extends Service implements LocationListener {
     private double lon;
     private Location posicion = null;
     int distancia;
-    String puntoAnterior = " ";
 
 
 
@@ -68,11 +67,7 @@ public class NotificationService extends Service implements LocationListener {
                                     lon = Double.valueOf(coord[1]);
                                     distancia = getDistance(lat, lon, posicion.getLatitude(), posicion.getLongitude());
                                     if (distancia < 250) {
-                                        if (!puntoAnterior.equals(items.get(i).getCoordenadas())) {
                                             notificar(items.get(i), distancia);
-                                            puntoAnterior = items.get(i).getCoordenadas();
-                                        }
-
                                     }
                                 }
                             }
@@ -120,8 +115,7 @@ public class NotificationService extends Service implements LocationListener {
                                         .setSmallIcon(R.drawable.icon_not)
                                         .setContentTitle(puntoInteres.getNombre())
                                         .setContentText(getString(R.string.distance_notific) + " " + String.valueOf(distance) + "m")
-                                        .setTicker(puntoInteres.getNombre())
-                                        .setContentIntent(pendingIntent);
+                                        .setTicker(puntoInteres.getNombre());
 
 
         //Lanza la notificación
@@ -136,7 +130,6 @@ public class NotificationService extends Service implements LocationListener {
         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon /2) * Math.sin(dLon/2);
         double c = 2 * Math.asin(Math.sqrt(a));
         return (int) (Radius * c);
-
     }
 
     @Override
